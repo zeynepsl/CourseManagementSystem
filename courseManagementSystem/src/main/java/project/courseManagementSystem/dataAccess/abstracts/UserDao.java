@@ -6,5 +6,4 @@ import project.courseManagementSystem.entities.concretes.User;
 
 public interface UserDao extends JpaRepository<User, Integer>{
 	//CRUD operations are ready for User Class.
-
 }

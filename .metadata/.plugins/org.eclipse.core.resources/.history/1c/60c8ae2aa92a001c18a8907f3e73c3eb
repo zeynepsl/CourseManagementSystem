@@ -1,0 +1,5 @@
+package project.courseManagementSystem.business.abstracts;
+
+public interface StudentService {
+
+}

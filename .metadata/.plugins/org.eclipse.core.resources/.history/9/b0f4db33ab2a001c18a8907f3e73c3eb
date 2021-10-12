@@ -1,0 +1,5 @@
+package project.courseManagementSystem.core.business;
+
+public interface BaseService<T> {
+	public void add(T entity);
+}
