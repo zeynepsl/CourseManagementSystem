@@ -1,9 +1,7 @@
 package project.courseManagementSystem.business.abstracts;
 
-import java.util.List;
-
+import project.courseManagementSystem.core.business.BaseService;
 import project.courseManagementSystem.entities.concretes.Instructor;
 
-public interface InstructorService {
-	List<Instructor> getAll();
+public interface InstructorService extends BaseService<Instructor>{
 }

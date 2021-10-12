@@ -1,5 +1,0 @@
-package project.courseManagementSystem.entities.abstracts;
-
-public interface UserDao {
-
-}

@@ -1,7 +1,0 @@
-package project.courseManagementSystem.entities.concretes;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface StudentDao extends JpaRepository<Student, Integer>{
-
-}

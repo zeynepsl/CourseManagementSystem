@@ -1,12 +1,14 @@
 package project.courseManagementSystem.api.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.User;
 
 @RestController
@@ -19,8 +21,29 @@ public class UsersController {
 		super();
 		this.userService = userService;
 	}
+
+	@PostMapping("/add")
+	public Result add(@RequestBody User user) {
+		return userService.add(user);
+	}
 	
-	public List<User> getAll() {
+	@PostMapping("/delete")
+	public Result delete(User user) {
+		return userService.delete(user);
+	}
+	
+	@PostMapping("/update")
+	public Result update(User user) {
+		return userService.update(user);
+	}
+	
+	@GetMapping("/getById")
+	public Result getById(int id) {
+		return userService.getById(id);
+	}
+	
+	@GetMapping("/getAll")
+	public Result getAll() {
 		return userService.getAll();
 	}
 }

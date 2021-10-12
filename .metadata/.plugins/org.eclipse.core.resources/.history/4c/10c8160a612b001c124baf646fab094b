@@ -1,5 +1,0 @@
-package project.courseManagementSystem.core.business;
-
-public interface BaseService<T> {
-	public v
-}

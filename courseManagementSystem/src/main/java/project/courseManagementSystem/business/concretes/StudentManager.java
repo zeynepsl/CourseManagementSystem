@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.StudentService;
+import project.courseManagementSystem.core.utilities.results.DataResult;
+import project.courseManagementSystem.core.utilities.results.Result;
+import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
+import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.StudentDao;
 import project.courseManagementSystem.entities.concretes.Student;
 
@@ -20,10 +24,33 @@ public class StudentManager implements StudentService{
 		this.studentDao = studentDao;
 	}
 
+	@Override
+	public Result add(Student entity) {
+		studentDao.save(entity);
+		return new SuccessResult("Student added!");
+	}
 
 	@Override
-	public List<Student> getAll() {
-		return studentDao.findAll();
+	public Result delete(Student entity) {
+		studentDao.delete(entity);
+		return new SuccessResult("Student deleted!");
 	}
+
+	@Override
+	public Result update(Student entity) {
+		studentDao.save(entity);
+		return new SuccessResult("Student updated!");
+	}
+
+	@Override
+	public DataResult<Student> getById(int id) {
+		return new SuccessDataResult<Student>(studentDao.getById(id), "Student viewed!");
+	}
+
+	@Override
+	public DataResult<List<Student>> getAll() {
+		return new SuccessDataResult<List<Student>>(studentDao.findAll(), "Students listed");
+	}
+
 
 }

@@ -1,5 +1,0 @@
-package project.courseManagementSystem.business.abstracts;
-
-public interface UserService {
-	List
-}
