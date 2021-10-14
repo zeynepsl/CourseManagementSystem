@@ -14,10 +14,10 @@ target/
 .sts4-cache
 
 ### Eclipse ###
+.metadata
+.settings
 .classpath
 .project
-.settings
-.metadata
 bin/
 tmp/
 *.tmp
