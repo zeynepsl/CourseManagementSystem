@@ -1,0 +1,5 @@
+package project.courseManagementSystem.entities.concretes;
+
+public class User {
+
+}

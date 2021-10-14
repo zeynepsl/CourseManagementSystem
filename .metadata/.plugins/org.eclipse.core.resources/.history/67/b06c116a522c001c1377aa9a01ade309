@@ -1,0 +1,17 @@
+package project.courseManagementSystem.business.validationRules;
+
+import project.courseManagementSystem.core.utilities.results.Result;
+import project.courseManagementSystem.entities.concretes.Student;
+import project.courseManagementSystem.entities.concretes.User;
+
+public class UserValidator {
+	
+	public Result checkIfUserInfoIsFull(User user) {
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String email = user.getEmail();
+		String phoneNumber = user.getPhoneNumber();
+		String nationalityId = user.getNationalityId();
+
+	}
+}

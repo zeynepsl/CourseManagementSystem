@@ -1,0 +1,22 @@
+package project.courseManagementSystem.business.validationRules;
+
+import project.courseManagementSystem.core.utilities.results.Result;
+import project.courseManagementSystem.entities.concretes.Student;
+
+public class StudentValidator {
+	public Result checkIfStudentInfoIsFull(Student student) {
+		String firstName = student.getFirstName();
+		String lastName = student.getLastName();
+		String email = student.getEmail();
+		String birthDate = student.getBirthDate().toString();
+		String phoneNumber = student.getPhoneNumber();
+		String gender = student.getGender();
+		String schoolName = student.getSchoolName();
+		String nationalityId = student.getNationalityId();
+		
+		if(student.getFirstName() == null && student.getFirstName().isBlank()
+				&& student.getLastName() == null && student.getLastName().isBlank()
+				&& student.getEmail() == null && student.getEmail().isBlank()
+				&& student.getBirthDate() == null && student.getBirthDate().toString().isBlank())
+	}
+}

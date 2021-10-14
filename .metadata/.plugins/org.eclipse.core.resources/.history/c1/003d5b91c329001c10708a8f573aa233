@@ -1,0 +1,5 @@
+package project.courseManagementSystem.dataAccess.abstracts;
+
+public interface UserDao {
+
+}

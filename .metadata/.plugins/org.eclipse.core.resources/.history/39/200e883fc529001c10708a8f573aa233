@@ -1,0 +1,19 @@
+package project.courseManagementSystem.business.concretes;
+
+import java.util.List;
+
+import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.dataAccess.abstracts.UserDao;
+import project.courseManagementSystem.entities.concretes.User;
+
+public class UserManager implements UserService{
+
+	//you need to access to dataAccess layer. So:
+	private UserDao userDao;
+	@Override
+	public List<User> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

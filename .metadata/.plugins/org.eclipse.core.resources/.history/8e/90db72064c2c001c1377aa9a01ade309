@@ -1,0 +1,5 @@
+package project.courseManagementSystem.core.email;
+
+public interface EmailCheck {
+
+}

@@ -1,0 +1,9 @@
+package project.courseManagementSystem.business.abstracts;
+
+import project.courseManagementSystem.core.utilities.results.Result;
+import project.courseManagementSystem.entities.concretes.User;
+
+public interface AuthService {
+	public Result login(User user);
+	public Result register(User user);
+}

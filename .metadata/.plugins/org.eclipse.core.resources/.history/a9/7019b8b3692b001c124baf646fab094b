@@ -1,0 +1,5 @@
+package project.courseManagementSystem.core.utilities.results;
+
+public class ErrorResult extends Result{
+
+}

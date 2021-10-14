@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.UserService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
+import project.courseManagementSystem.core.utilities.results.ErrorResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
@@ -18,8 +19,7 @@ public class UserManager implements UserService{
 
 	//you need to access to dataAccess layer. So:
 	private UserDao userDao; 
-	
-	//UserDao is a interface
+
 	@Autowired
 	public UserManager(UserDao userDao) {
 		super();
@@ -48,6 +48,15 @@ public class UserManager implements UserService{
 	@Override
 	public DataResult<List<User>> getAll() {
 		return new SuccessDataResult<List<User>>(userDao.findAll(), "Users listed!");
+	}
+
+	@Override
+	public Result existsByEmail(String email) {
+		boolean result = userDao.existsByEmail(email);
+		if(result) {
+			return new ErrorResult("this email already exists!");
+		}
+		return new SuccessResult();
 	}
 
 }
