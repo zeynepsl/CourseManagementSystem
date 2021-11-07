@@ -3,15 +3,12 @@ package project.courseManagementSystem.core.email;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
-import project.courseManagementSystem.core.utilities.results.ErrorResult;
-import project.courseManagementSystem.core.utilities.results.Result;
-import project.courseManagementSystem.core.utilities.results.SuccessResult;
 
-@Service
-//!!!!!!!!!!!!?????????????
-
+@Component
+@Primary
 public class EmailCheckManager implements EmailCheckService{
 
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
@@ -23,12 +20,12 @@ public class EmailCheckManager implements EmailCheckService{
 		}*/
 
 	@Override
-	public Result emailCheck(String email) {
+	public boolean emailCheck(String email) {
 		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
 		if(matcher.find()) {
-			return new SuccessResult("email is valid!");
+			return true;
 		}
-		return new ErrorResult("email is not valid!");
+		return false;
 	}
 
 }

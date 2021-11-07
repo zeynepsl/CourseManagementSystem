@@ -1,7 +1,8 @@
 package project.courseManagementSystem.core.email;
 
-import project.courseManagementSystem.core.utilities.results.Result;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface EmailCheckService {
-	public Result emailCheck(String email);
+	public boolean emailCheck(String email);
 }
