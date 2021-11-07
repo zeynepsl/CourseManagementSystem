@@ -1,5 +1,7 @@
 package project.courseManagementSystem.api.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.courseManagementSystem.business.abstracts.InstructorService;
+import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Instructor;
 
@@ -22,6 +25,11 @@ public class InstructorsController {
 		this.instructorService = instructorService;
 	}
 	
+	@PostMapping("/register")
+	public Result register(@RequestBody Instructor instructor) {
+		return instructorService.register(instructor);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody Instructor instructor) {
 		return instructorService.add(instructor);
@@ -33,7 +41,7 @@ public class InstructorsController {
 	}
 	
 	@PostMapping("/update")
-	public Result update(Instructor instructor) {
+	public Result update(@RequestBody Instructor instructor) {
 		return instructorService.update(instructor);
 	}
 	
@@ -43,7 +51,7 @@ public class InstructorsController {
 	}
 	
 	@GetMapping("/getAll")
-	public Result getAll() {
+	public DataResult<List<Instructor>> getAll() {
 		return instructorService.getAll();
 	}
 	

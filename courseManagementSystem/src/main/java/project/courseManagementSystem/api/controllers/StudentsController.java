@@ -51,8 +51,8 @@ public class StudentsController {
 		return studentService.getAll();
 	}
 	
-	@GetMapping("/findByEmail")
-	public DataResult<Student> findByEmail(String email){
-		return studentService.findByEmail(email);
+	@GetMapping("/getByEmail")
+	public DataResult<Student> getByEmail(String email){
+		return studentService.getByEmail(email);
 	}
 }

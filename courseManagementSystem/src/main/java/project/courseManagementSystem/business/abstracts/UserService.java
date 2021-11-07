@@ -6,6 +6,7 @@ import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.User;
 
 public interface UserService extends BaseService<User>{
-	public Result existsByEmail(String email);
+	public boolean existsByEmail(String email);
+	public boolean existById(int id);
 	public DataResult<User> findByEmail(String email);
 }

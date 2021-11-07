@@ -7,5 +7,5 @@ import project.courseManagementSystem.entities.concretes.Student;
 
 public interface StudentService extends BaseService<Student>{
 	public Result register(Student student);
-	public DataResult<Student> findByEmail(String email);
+	public DataResult<Student> getByEmail(String email);
 }
