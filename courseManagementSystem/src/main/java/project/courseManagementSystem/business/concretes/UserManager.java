@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.UserService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
+import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
@@ -32,8 +33,8 @@ public class UserManager implements UserService{
 		return new SuccessResult("User added!");
 	}
 	@Override
-	public Result delete(User entity) {
-		userDao.delete(entity);
+	public Result delete(int id) {
+		userDao.deleteById(id);
 		return new SuccessResult("User deleted!");
 	}
 	@Override
@@ -57,6 +58,16 @@ public class UserManager implements UserService{
 			return new ErrorResult("this email already exists!");
 		}
 		return new SuccessResult();
+	}
+	
+	@Override
+	public DataResult<User> findByEmail(String email) {
+		for(User user: userDao.findAll()) {
+			if( (user.getEmail()).equals(email)) {
+				return new SuccessDataResult<User>(user, "user listed");
+			}
+		}
+		return new ErrorDataResult<User>(null, "user is not exist");
 	}
 
 }

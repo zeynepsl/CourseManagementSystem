@@ -31,8 +31,8 @@ public class InstructorManager implements InstructorService{
 	}
 
 	@Override
-	public Result delete(Instructor entity) {
-		instructorDao.delete(entity);
+	public Result delete(int id) {
+		instructorDao.deleteById(id);
 		return new SuccessResult("Instructor deleted!");
 	}
 
