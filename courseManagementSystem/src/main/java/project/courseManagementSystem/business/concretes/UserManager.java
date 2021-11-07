@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import project.courseManagementSystem.business.abstracts.UserService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
-import project.courseManagementSystem.core.utilities.results.ErrorResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
@@ -52,12 +51,21 @@ public class UserManager implements UserService{
 	}
 
 	@Override
-	public Result existsByEmail(String email) {
+	public boolean existsByEmail(String email) {
 		boolean result = userDao.existsByEmail(email);
 		if(result) {
-			return new ErrorResult("this email already exists!");
+			return true;
 		}
-		return new SuccessResult();
+		return false;
+	}
+	
+	@Override
+	public boolean existById(int id) {
+		boolean result = userDao.existsById(id);
+		if(result) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -69,5 +77,7 @@ public class UserManager implements UserService{
 		}
 		return new ErrorDataResult<User>(null, "user is not exist");
 	}
+
+
 
 }
