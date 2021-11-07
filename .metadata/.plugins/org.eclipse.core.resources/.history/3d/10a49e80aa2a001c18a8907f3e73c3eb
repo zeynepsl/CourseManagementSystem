@@ -1,5 +1,0 @@
-package project.courseManagementSystem.api.controllers;
-
-public class StudentsController {
-
-}

@@ -1,7 +1,0 @@
-package project.courseManagementSystem.core.business;
-
-import project.courseManagementSystem.core.utilities.results.Result;
-
-public interface BaseService<T> {
-	public Result add(T entity);
-}

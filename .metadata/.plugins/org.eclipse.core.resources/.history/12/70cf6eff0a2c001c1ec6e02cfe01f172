@@ -1,5 +1,0 @@
-package project.courseManagementSystem.business.concretes;
-
-public class AuthManager {
-
-}

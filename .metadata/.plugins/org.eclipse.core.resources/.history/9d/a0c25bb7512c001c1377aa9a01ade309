@@ -1,5 +1,0 @@
-package project.courseManagementSystem.business.validationRules;
-
-public class UserValidator {
-
-}

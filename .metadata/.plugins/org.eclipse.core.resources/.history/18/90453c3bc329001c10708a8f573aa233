@@ -1,9 +1,0 @@
-package project.courseManagementSystem.entities.abstracts;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import project.courseManagementSystem.entities.concretes.User;
-
-public interface UserDao extends JpaRepository<User, Integer>{
-
-}

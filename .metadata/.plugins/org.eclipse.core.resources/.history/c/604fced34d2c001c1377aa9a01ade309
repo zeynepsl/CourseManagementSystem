@@ -1,5 +1,0 @@
-package project.courseManagementSystem.core.email;
-
-public class EmailCheckManager {
-
-}

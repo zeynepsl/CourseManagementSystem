@@ -1,11 +1,11 @@
 package project.courseManagementSystem.entities.concretes;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,12 +22,11 @@ import lombok.NoArgsConstructor;
 public class Student extends User{
 	// private int userId;
 	
-	@Column(name = "birth_date")
-	private LocalDate birthDate;
-	
 	@Column(name = "school_name")
+	@NotNull
 	private String schoolName;
 	
 	@Column(name = "gender")
+	@NotNull
 	private String gender;
 }

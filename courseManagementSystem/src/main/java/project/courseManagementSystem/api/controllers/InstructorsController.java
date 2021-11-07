@@ -28,8 +28,8 @@ public class InstructorsController {
 	}
 	
 	@PostMapping("/delete")
-	public Result delete(Instructor instructor) {
-		return instructorService.delete(instructor);
+	public Result delete(int id) {
+		return instructorService.delete(id);
 	}
 	
 	@PostMapping("/update")
