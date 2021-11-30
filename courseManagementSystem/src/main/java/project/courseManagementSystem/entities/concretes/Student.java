@@ -2,6 +2,8 @@ package project.courseManagementSystem.entities.concretes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -29,4 +31,9 @@ public class Student extends User{
 	@Column(name = "gender")
 	@NotNull
 	private String gender;
+	
+	@ManyToOne
+	@JoinColumn(name = "course_id")
+	private Course course;
+	
 }

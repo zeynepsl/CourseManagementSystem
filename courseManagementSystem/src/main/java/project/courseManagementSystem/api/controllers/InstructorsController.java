@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.courseManagementSystem.business.abstracts.InstructorService;
@@ -46,7 +47,7 @@ public class InstructorsController {
 	}
 	
 	@GetMapping("/getById")
-	public Result getById(int id) {
+	public DataResult<Instructor> getById(int id) {
 		return instructorService.getById(id);
 	}
 	
@@ -55,4 +56,9 @@ public class InstructorsController {
 		return instructorService.getAll();
 	}
 	
+	// --- TO DO ---
+	@PostMapping("/addInstructorToCourse")
+	public Result addInstructorToCourse(@RequestParam int instructorId,@RequestParam int courseId) {
+		return instructorService.addInstructorToCourse(instructorId, courseId);
+	}
 }

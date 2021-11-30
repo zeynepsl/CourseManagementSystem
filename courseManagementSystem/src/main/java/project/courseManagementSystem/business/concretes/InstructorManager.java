@@ -26,7 +26,6 @@ public class InstructorManager implements InstructorService{
 	private EmailCheckService emailCheckService;
 	private UserService userService;
 	
-	
 	@Autowired
 	public InstructorManager(InstructorDao instructorDao, InstructorValidatorService instructorValidatorService,
 			EmailCheckService emailCheckService, UserService userService) {
@@ -99,6 +98,21 @@ public class InstructorManager implements InstructorService{
 	@Override
 	public DataResult<List<Instructor>> getAll() {
 		return new SuccessDataResult<List<Instructor>>(instructorDao.findAll(), "Instructors listed");
+	}
+	
+	// TO DO:
+	/*
+	 		Instructor instructor = getById(instructorId).getData();
+		Course course = courseService.getById(courseId).getData();
+		instructor.getEnrolledCourses().add(course);
+		instructorDao.save(instructor);
+	 
+	 */
+	
+	// --- TO DO ---
+	@Override
+	public Result addInstructorToCourse(int instructorId, int courseId) {
+		return new SuccessResult("succesfull");
 	}
 
 }

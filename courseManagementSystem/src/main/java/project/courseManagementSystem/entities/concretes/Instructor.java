@@ -1,7 +1,10 @@
 package project.courseManagementSystem.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -21,4 +24,8 @@ public class Instructor extends User{
 	
 	@Column(name = "department_name")
 	private String departmentName;
+
+	@ManyToMany(mappedBy = "enrolledInstructors")
+	private List<Course> courses;
+	
 }
