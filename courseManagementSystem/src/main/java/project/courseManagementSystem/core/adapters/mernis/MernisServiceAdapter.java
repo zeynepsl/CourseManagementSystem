@@ -5,7 +5,7 @@ import java.util.Locale;
 
 import org.springframework.stereotype.Component;
 
-import project.courseManagementSystem.entities.concretes.User;
+import project.courseManagementSystem.core.entities.User;
 import tr.gov.nvi.tckimlik.WS.KPSPublicSoapProxy;
 
 @Component

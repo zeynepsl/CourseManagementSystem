@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -53,6 +54,7 @@ public class Course {
 			)
 	private List<Instructor> enrolledInstructors;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "enrolled_lessons",
@@ -60,6 +62,7 @@ public class Course {
 			inverseJoinColumns = @JoinColumn(referencedColumnName = "lesson_id"))
 	private List<Lesson> enrolledLessons;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "course")
 	private List<Student> students;
 	
@@ -67,4 +70,8 @@ public class Course {
     @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="ID")}
                                         , inverseJoinColumns={@JoinColumn(referencedColumnName="ID")})  
     private Set<SubscriptionEntity> subscriptions;*/
+	
+	public void setInstructor(Instructor instructor) {
+		enrolledInstructors.add(instructor);
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,9 +51,14 @@ public class CourseController {
 		return courseService.getAll();
 	}
 	
-	@GetMapping("getAllInfo")
+	@GetMapping("/getAllInfo")
 	public DataResult<CourseInfoDto> getAllInfo(int courseId){
 		return courseService.getAllInfo(courseId);
+	}
+	
+	@PutMapping(("/{courseId}/instructor/{instructorId}"))
+	public Result addInstructorToCourse(int instructorId, int courseId) {
+		return courseService.addInstructorToCourse(instructorId, courseId);
 	}
 	/*
 	 	@PostMapping("addCourseWithAllInfo")

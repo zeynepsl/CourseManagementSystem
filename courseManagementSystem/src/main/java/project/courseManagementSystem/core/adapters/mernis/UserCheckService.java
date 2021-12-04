@@ -2,7 +2,7 @@ package project.courseManagementSystem.core.adapters.mernis;
 
 import org.springframework.stereotype.Service;
 
-import project.courseManagementSystem.entities.concretes.User;
+import project.courseManagementSystem.core.entities.User;
 
 @Service
 public interface UserCheckService {

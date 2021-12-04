@@ -17,6 +17,7 @@ import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.StudentDao;
 import project.courseManagementSystem.entities.concretes.Student;
+import project.courseManagementSystem.entities.dtos.UserForLoginDto;
 
 @Service
 public class StudentManager implements StudentService {
@@ -36,6 +37,7 @@ public class StudentManager implements StudentService {
 		this.userService = userService;
 	}
 
+	@Override
 	public Result register(Student student) {
 
 		// refactor: (findByEmail( student.getEmail()) ).getData() != null
@@ -51,10 +53,33 @@ public class StudentManager implements StudentService {
 		if (!emailCheckService.emailCheck(student.getEmail())) {
 			return new ErrorResult("invalid email");
 		}
-
-		add(student);
+		
+		
+		//String hashedPassword = passwordEncoderService.hashPassword(student.getPassword());
+		//student.setPassword(hashedPassword);
+		studentDao.save(student);
+		
 		return new SuccessResult("Successfully registered");
 
+	}
+	
+	@Override
+	public Result login(UserForLoginDto userForLoginDto) {
+		//TO DO
+		
+		//burada kullanıcıdan gelen passwordu hashliyoruz
+		//BCryptPasswordEncoder ---->
+		//kullanıcının şifresini kodlamak için, böylece şifrenin kendisi veritabanında saklanmaz (daha iyi güvenlik için) – sadece şifrenin karma değeri saklanır.
+		//Implementation of PasswordEncoder that uses the BCrypt strong hashing function
+		//  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+		//encode() --->  Encode the raw password. 
+		//Generally, a good encoding algorithm applies a SHA-1 orgreater hash 
+		//combined with an 8-byte or greater randomly generated salt
+		//  String encodedPassword = passwordEncoder.encode(userForLoginDto.getPassword());
+		//  userForLoginDto.setPassword(encodedPassword);
+		
+		return new SuccessResult("succesfully login");
 	}
 
 	@Override
@@ -112,6 +137,11 @@ public class StudentManager implements StudentService {
 			}
 		}
 		return new ErrorDataResult<Student>(null, "student is not exist");
+	}
+
+	@Override
+	public DataResult<List<Student>> getAllByCourse_Id(int courseId) {
+		return new SuccessDataResult<List<Student>>(studentDao.getAllByCourse_Id(courseId), "Students listed");
 	}
 
 }

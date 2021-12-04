@@ -17,6 +17,7 @@ import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.InstructorDao;
 import project.courseManagementSystem.entities.concretes.Instructor;
+import project.courseManagementSystem.entities.dtos.CoursesWithInstructorDto;
 
 @Service
 public class InstructorManager implements InstructorService{
@@ -114,5 +115,18 @@ public class InstructorManager implements InstructorService{
 	public Result addInstructorToCourse(int instructorId, int courseId) {
 		return new SuccessResult("succesfull");
 	}
+	
+	@Override
+	public DataResult<CoursesWithInstructorDto> getAllCoursesByInstructorId(int instructorId){
+		Instructor instructor = getById(instructorId).getData();
+		
+		CoursesWithInstructorDto coursesWithInstructorDto = new CoursesWithInstructorDto();
+		
+		coursesWithInstructorDto.setEmail(instructor.getEmail());
+		coursesWithInstructorDto.setCourses(instructor.getCourses());
+		
+		return new SuccessDataResult<CoursesWithInstructorDto>(coursesWithInstructorDto,"bir eğitmene ait kurslar listelendi");
+		
+	} 
 
 }

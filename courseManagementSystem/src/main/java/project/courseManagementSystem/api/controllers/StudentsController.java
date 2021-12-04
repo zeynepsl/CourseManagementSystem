@@ -31,6 +31,7 @@ public class StudentsController {
 		return studentService.register(student);
 	}
 	
+	
 	@PostMapping("/delete")
 	public Result delete(@RequestParam int id) {
 		return studentService.delete(id);
@@ -54,5 +55,10 @@ public class StudentsController {
 	@GetMapping("/getByEmail")
 	public DataResult<Student> getByEmail(String email){
 		return studentService.getByEmail(email);
+	}
+	
+	@GetMapping("/getAllByCourse_Id")
+	public DataResult<List<Student>> getAllByCourse_Id(@RequestParam int courseId){
+		return studentService.getAllByCourse_Id(courseId);
 	}
 }

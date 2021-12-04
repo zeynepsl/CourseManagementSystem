@@ -1,4 +1,4 @@
- package project.courseManagementSystem.entities.concretes;
+ package project.courseManagementSystem.core.entities;
 
 import java.time.LocalDate;
 

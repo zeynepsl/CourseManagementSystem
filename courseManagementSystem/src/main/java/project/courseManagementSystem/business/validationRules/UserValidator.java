@@ -1,6 +1,6 @@
 package project.courseManagementSystem.business.validationRules;
 
-import project.courseManagementSystem.entities.concretes.User;
+import project.courseManagementSystem.core.entities.User;
 
 public abstract class UserValidator {
 

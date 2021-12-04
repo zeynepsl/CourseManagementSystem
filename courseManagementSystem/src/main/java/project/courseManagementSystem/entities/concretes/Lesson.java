@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
@@ -40,6 +41,7 @@ public class Lesson {
 
 	//@JsonIgnore -> list tipinde olanlara
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "enrolledLessons")
 	private List<Course> courses;
 	

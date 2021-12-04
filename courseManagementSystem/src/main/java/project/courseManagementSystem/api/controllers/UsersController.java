@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.core.entities.User;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
-import project.courseManagementSystem.entities.concretes.User;
 
 @RestController
 @RequestMapping("/api/users")

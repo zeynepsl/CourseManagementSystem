@@ -14,6 +14,7 @@ import project.courseManagementSystem.business.abstracts.InstructorService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Instructor;
+import project.courseManagementSystem.entities.dtos.CoursesWithInstructorDto;
 
 @RestController
 @RequestMapping("/api/instructors")
@@ -61,4 +62,10 @@ public class InstructorsController {
 	public Result addInstructorToCourse(@RequestParam int instructorId,@RequestParam int courseId) {
 		return instructorService.addInstructorToCourse(instructorId, courseId);
 	}
+	
+	@GetMapping("getAllCoursesByInstructorId")
+	public DataResult<CoursesWithInstructorDto> getAllCoursesByInstructorId(@RequestParam int instructorId){
+		return instructorService.getAllCoursesByInstructorId(instructorId);
+	}
+	
 }

@@ -9,4 +9,5 @@ import project.courseManagementSystem.entities.dtos.CourseInfoDto;
 public interface CourseService extends BaseService<Course>{
 	public Result addCourseWithAllInfo(CourseInfoDto courseInfoDto);
 	public DataResult<CourseInfoDto> getAllInfo(int courseId);
+	public Result addInstructorToCourse(int instructorId, int courseId);
 }

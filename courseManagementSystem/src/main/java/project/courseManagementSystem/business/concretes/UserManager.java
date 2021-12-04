@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.core.entities.User;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.UserDao;
-import project.courseManagementSystem.entities.concretes.User;
 
 @Service
 public class UserManager implements UserService{
