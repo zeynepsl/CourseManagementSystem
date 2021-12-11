@@ -3,12 +3,15 @@ package project.courseManagementSystem.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import project.courseManagementSystem.business.abstracts.RoleService;
 import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.business.abstracts.UserService;
 import project.courseManagementSystem.business.validationRules.StudentValidatorService;
 import project.courseManagementSystem.core.email.EmailCheckService;
+import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -17,7 +20,7 @@ import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.StudentDao;
 import project.courseManagementSystem.entities.concretes.Student;
-import project.courseManagementSystem.entities.dtos.UserForLoginDto;
+import project.courseManagementSystem.entities.dtos.LoginDto;
 
 @Service
 public class StudentManager implements StudentService {
@@ -26,15 +29,20 @@ public class StudentManager implements StudentService {
 	private StudentValidatorService studentValidatorService;
 	private EmailCheckService emailCheckService;
 	private UserService userService;
-
+    private PasswordEncoder passwordEncoder;
+    private RoleService roleService;
+    
 	@Autowired
 	public StudentManager(StudentDao studentDao, StudentValidatorService studentValidatorService,
-			EmailCheckService emailCheckService, UserService userService) {
+			EmailCheckService emailCheckService, UserService userService, PasswordEncoder passwordEncoder, 
+			RoleService roleService) {
 		super();
 		this.studentDao = studentDao;
 		this.studentValidatorService = studentValidatorService;
 		this.emailCheckService = emailCheckService;
 		this.userService = userService;
+		this.passwordEncoder = passwordEncoder;
+		this.roleService = roleService;
 	}
 
 	@Override
@@ -54,9 +62,15 @@ public class StudentManager implements StudentService {
 			return new ErrorResult("invalid email");
 		}
 		
-		
-		//String hashedPassword = passwordEncoderService.hashPassword(student.getPassword());
-		//student.setPassword(hashedPassword);
+        if(userService.existByUsername(student.getUsername())){
+            return new ErrorResult("Username is already taken!");
+        }
+           
+        student.setPassword(passwordEncoder.encode(student.getPassword()));
+
+        List<Role> roles =roleService.findByName("ROLE_ADMIN").getData();
+        student.setRoles(roles);
+
 		studentDao.save(student);
 		
 		return new SuccessResult("Successfully registered");
@@ -64,7 +78,7 @@ public class StudentManager implements StudentService {
 	}
 	
 	@Override
-	public Result login(UserForLoginDto userForLoginDto) {
+	public Result login(LoginDto loginDto) {
 		//TO DO
 		
 		//burada kullanıcıdan gelen passwordu hashliyoruz
@@ -143,5 +157,6 @@ public class StudentManager implements StudentService {
 	public DataResult<List<Student>> getAllByCourse_Id(int courseId) {
 		return new SuccessDataResult<List<Student>>(studentDao.getAllByCourse_Id(courseId), "Students listed");
 	}
+
 
 }

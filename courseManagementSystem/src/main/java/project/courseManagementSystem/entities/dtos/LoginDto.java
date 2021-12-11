@@ -9,9 +9,7 @@ import project.courseManagementSystem.core.entities.Dto;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class UserForLoginDto implements Dto{
+public class LoginDto implements Dto{
 	private String password;
-	
-	
 	private String email;
 }

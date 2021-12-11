@@ -1,6 +1,7 @@
  package project.courseManagementSystem.core.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -39,6 +43,9 @@ public class User {
 	@NotNull
 	private String lastName;
 	
+	@Column(name = "username")
+	private String username;
+	
 	@Column(name = "email")
 	@NotNull
 	private String email;
@@ -58,4 +65,11 @@ public class User {
 	@Column(name = "password")
 	@NotNull
 	private String password;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "user_roles",
+			joinColumns = @JoinColumn(referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
+	private List<Role> roles;
 }

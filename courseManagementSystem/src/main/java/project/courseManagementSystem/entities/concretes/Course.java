@@ -44,8 +44,9 @@ public class Course {
 	private LocalDate endDate;
 	
 	//****baeldung.com
-	//here is owning side:
+	//here is owning side -> Course:
 	//@JoinTable: in order to specify the owning side)
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "enrolled_instructors",

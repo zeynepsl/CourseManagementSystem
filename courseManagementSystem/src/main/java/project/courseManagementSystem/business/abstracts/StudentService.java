@@ -6,11 +6,11 @@ import project.courseManagementSystem.core.business.BaseService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Student;
-import project.courseManagementSystem.entities.dtos.UserForLoginDto;
+import project.courseManagementSystem.entities.dtos.LoginDto;
 
 public interface StudentService extends BaseService<Student>{
 	public Result register(Student student);
-	public Result login(UserForLoginDto userForLoginDto);
+	public Result login(LoginDto loginDto);
 	public DataResult<Student> getByEmail(String email);
 	public DataResult<List<Student>> getAllByCourse_Id(int courseId);
 }

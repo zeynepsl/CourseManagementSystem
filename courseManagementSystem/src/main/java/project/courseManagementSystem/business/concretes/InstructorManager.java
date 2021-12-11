@@ -3,12 +3,15 @@ package project.courseManagementSystem.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.InstructorService;
+import project.courseManagementSystem.business.abstracts.RoleService;
 import project.courseManagementSystem.business.abstracts.UserService;
 import project.courseManagementSystem.business.validationRules.InstructorValidatorService;
 import project.courseManagementSystem.core.email.EmailCheckService;
+import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -26,15 +29,19 @@ public class InstructorManager implements InstructorService{
 	private InstructorValidatorService instructorValidatorService;
 	private EmailCheckService emailCheckService;
 	private UserService userService;
+    private PasswordEncoder passwordEncoder;
+    private RoleService roleService;
 	
 	@Autowired
 	public InstructorManager(InstructorDao instructorDao, InstructorValidatorService instructorValidatorService,
-			EmailCheckService emailCheckService, UserService userService) {
+			EmailCheckService emailCheckService, UserService userService, PasswordEncoder passwordEncoder, RoleService roleService) {
 		super();
 		this.instructorDao = instructorDao;
 		this.instructorValidatorService = instructorValidatorService;
 		this.emailCheckService = emailCheckService;
 		this.userService = userService;
+		this.passwordEncoder = passwordEncoder;
+		this.roleService = roleService;
 	}
 
 	@Override
@@ -48,9 +55,24 @@ public class InstructorManager implements InstructorService{
 		}
 		
 		if(userService.existsByEmail(instructor.getEmail())) {
-			return new ErrorResult("instructor is already exist");
+			return new ErrorResult("instructor is already exist, taken");
 		}
-			
+		
+        if(userService.existByUsername(instructor.getUsername())){
+            return new ErrorResult("Username is already taken!");
+        }
+        
+        // create user object
+       // User savedUser = new User();
+       // savedUser.setLastName(user.getLastName());
+       // savedUser.setUsername(user.getUsername());
+       // savedUser.setEmail(user.getEmail());
+        instructor.setPassword(passwordEncoder.encode(instructor.getPassword()));
+
+        List<Role> roles =roleService.findByName("ROLE_ADMIN").getData();
+       // user.setRoles(Collections.singleton(roles));
+        instructor.setRoles(roles);
+        
 		instructorDao.save(instructor);
 		return new SuccessResult("Successfully registered");
 	}
@@ -118,15 +140,21 @@ public class InstructorManager implements InstructorService{
 	
 	@Override
 	public DataResult<CoursesWithInstructorDto> getAllCoursesByInstructorId(int instructorId){
-		Instructor instructor = getById(instructorId).getData();
+		/*	Instructor instructor = getById(instructorId).getData();
 		
 		CoursesWithInstructorDto coursesWithInstructorDto = new CoursesWithInstructorDto();
 		
 		coursesWithInstructorDto.setEmail(instructor.getEmail());
 		coursesWithInstructorDto.setCourses(instructor.getCourses());
 		
-		return new SuccessDataResult<CoursesWithInstructorDto>(coursesWithInstructorDto,"bir eğitmene ait kurslar listelendi");
-		
+		return new SuccessDataResult<CoursesWithInstructorDto>(coursesWithInstructorDto,"bir eğitmene ait kurslar listelendi");*/
+		return null;
 	} 
+	
+	public DataResult<List<Instructor>> birKurstakiEgitmenler(int courseId){
+		//Course course = courseService.getById(courseId).getData();
+		//course
+		return null;
+	}
 
 }

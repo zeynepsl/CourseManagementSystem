@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.courseManagementSystem.business.abstracts.RoleService;
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.entities.User;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
@@ -19,11 +21,13 @@ public class UserManager implements UserService{
 
 	//you need to access to dataAccess layer. So:
 	private UserDao userDao; 
+	private RoleService roleService;
 
 	@Autowired
-	public UserManager(UserDao userDao) {
+	public UserManager(UserDao userDao, RoleService roleService) {
 		super();
 		this.userDao = userDao;
+		this.roleService = roleService;
 	}
 	
 	@Override
@@ -43,7 +47,11 @@ public class UserManager implements UserService{
 	}
 	@Override
 	public DataResult<User> getById(int id) {
-		return new SuccessDataResult<User>(userDao.getById(id), "User viewed!");
+		User user = userDao.findById(id).get();
+		if(user == null) {
+			return new ErrorDataResult<User>(null, "user is not exist");
+		}
+		return new SuccessDataResult<User>(user, "User viewed!");
 	}
 	@Override
 	public DataResult<List<User>> getAll() {
@@ -69,6 +77,15 @@ public class UserManager implements UserService{
 	}
 	
 	@Override
+	public boolean existByUsername(String username) {
+		boolean result = userDao.existsByUsername(username);
+		if(result) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public DataResult<User> findByEmail(String email) {
 		for(User user: userDao.findAll()) {
 			if( (user.getEmail()).equals(email)) {
@@ -78,6 +95,13 @@ public class UserManager implements UserService{
 		return new ErrorDataResult<User>(null, "user is not exist");
 	}
 
-
+	@Override
+	public Result addRoleToUser(int roleId, int userId) {
+		Role role = roleService.getById(roleId).getData();
+		User user = getById(userId).getData();
+		user.getRoles().add(role);
+		userDao.save(user);
+		return new SuccessResult("rol, ilgili user a atandı");
+	}
 
 }

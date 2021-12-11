@@ -8,6 +8,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,6 +28,7 @@ public class Instructor extends User{
 	@Column(name = "department_name")
 	private String departmentName;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "enrolledInstructors")
 	private List<Course> courses;
 	
