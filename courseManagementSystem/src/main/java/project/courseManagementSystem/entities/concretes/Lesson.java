@@ -38,8 +38,6 @@ public class Lesson {
 	@Column(name = "grade")
 	@NotNull
 	private String grade;
-
-	//@JsonIgnore -> list tipinde olanlara
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "enrolledLessons")

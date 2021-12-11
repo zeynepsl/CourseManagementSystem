@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "courses")
 @AllArgsConstructor
 @NoArgsConstructor
-
+@JsonIgnoreProperties({"hibernateLazyInitializier", "handler", "students"})
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +64,7 @@ public class Course {
 			inverseJoinColumns = @JoinColumn(referencedColumnName = "lesson_id"))
 	private List<Lesson> enrolledLessons;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties
 	@OneToMany(mappedBy = "course")
 	private List<Student> students;
 	

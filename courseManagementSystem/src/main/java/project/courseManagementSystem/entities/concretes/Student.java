@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +26,7 @@ import project.courseManagementSystem.core.entities.User;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({"hibernateLazyInitializier", "handler", "homeworks"})
 public class Student extends User{
 	// private int userId;
 	
@@ -41,7 +42,7 @@ public class Student extends User{
 	@JoinColumn(name = "course_id")
 	private Course course;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties
 	@OneToMany(mappedBy = "student")
 	private List<Homework> homeworks;
 	

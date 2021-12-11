@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.business.abstracts.RoleService;
 import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.business.abstracts.UserService;
@@ -19,8 +20,9 @@ import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.StudentDao;
+import project.courseManagementSystem.entities.concretes.Course;
 import project.courseManagementSystem.entities.concretes.Student;
-import project.courseManagementSystem.entities.dtos.LoginDto;
+import project.courseManagementSystem.entities.dtos.StudentDto;
 
 @Service
 public class StudentManager implements StudentService {
@@ -31,11 +33,12 @@ public class StudentManager implements StudentService {
 	private UserService userService;
     private PasswordEncoder passwordEncoder;
     private RoleService roleService;
+    private CourseService courseService;
     
 	@Autowired
 	public StudentManager(StudentDao studentDao, StudentValidatorService studentValidatorService,
 			EmailCheckService emailCheckService, UserService userService, PasswordEncoder passwordEncoder, 
-			RoleService roleService) {
+			RoleService roleService, CourseService courseService) {
 		super();
 		this.studentDao = studentDao;
 		this.studentValidatorService = studentValidatorService;
@@ -43,57 +46,53 @@ public class StudentManager implements StudentService {
 		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
 		this.roleService = roleService;
+		this.courseService = courseService;
 	}
 
 	@Override
-	public Result register(Student student) {
+	public Result register(StudentDto studentDto) {
 
 		// refactor: (findByEmail( student.getEmail()) ).getData() != null
 		//returns true if saved to database:
-		if (userService.existsByEmail(student.getEmail())) {
+		if (userService.existsByEmail(studentDto.getEmail())) {
 			return new ErrorResult("this student is already exist");
 		}
 
-		if (!studentValidatorService.checkIfStudentInfoIsFull(student)) {
+		if (!studentValidatorService.checkIfStudentInfoIsFull(studentDto)) {
 			return new ErrorResult("enter all your information completely");
 		}
 		
-		if (!emailCheckService.emailCheck(student.getEmail())) {
+		if (!emailCheckService.emailCheck(studentDto.getEmail())) {
 			return new ErrorResult("invalid email");
 		}
 		
-        if(userService.existByUsername(student.getUsername())){
+        if(userService.existByUsername(studentDto.getUsername())){
             return new ErrorResult("Username is already taken!");
         }
-           
-        student.setPassword(passwordEncoder.encode(student.getPassword()));
+        Student student = new Student();
+        
+        student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
 
         List<Role> roles =roleService.findByName("ROLE_ADMIN").getData();
         student.setRoles(roles);
+        
+        Course course = courseService.getById(studentDto.getCourseId()).getData();
+        student.setCourse(course);
+        
+        student.setBirthDate(studentDto.getBirthDate());
+        student.setEmail(studentDto.getEmail());
+        student.setFirstName(studentDto.getLastName());
+        student.setLastName(studentDto.getLastName());
+        student.setGender(studentDto.getGender());
+        student.setNationalityId(studentDto.getNationalityId());
+        student.setPhoneNumber(studentDto.getPhoneNumber());
+        student.setSchoolName(studentDto.getSchoolName());
+        student.setUsername(studentDto.getUsername());
 
 		studentDao.save(student);
 		
 		return new SuccessResult("Successfully registered");
 
-	}
-	
-	@Override
-	public Result login(LoginDto loginDto) {
-		//TO DO
-		
-		//burada kullanıcıdan gelen passwordu hashliyoruz
-		//BCryptPasswordEncoder ---->
-		//kullanıcının şifresini kodlamak için, böylece şifrenin kendisi veritabanında saklanmaz (daha iyi güvenlik için) – sadece şifrenin karma değeri saklanır.
-		//Implementation of PasswordEncoder that uses the BCrypt strong hashing function
-		//  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
-		//encode() --->  Encode the raw password. 
-		//Generally, a good encoding algorithm applies a SHA-1 orgreater hash 
-		//combined with an 8-byte or greater randomly generated salt
-		//  String encodedPassword = passwordEncoder.encode(userForLoginDto.getPassword());
-		//  userForLoginDto.setPassword(encodedPassword);
-		
-		return new SuccessResult("succesfully login");
 	}
 
 	@Override

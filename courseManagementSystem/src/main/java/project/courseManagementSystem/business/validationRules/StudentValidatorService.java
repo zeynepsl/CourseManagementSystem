@@ -1,7 +1,7 @@
 package project.courseManagementSystem.business.validationRules;
 
-import project.courseManagementSystem.entities.concretes.Student;
+import project.courseManagementSystem.entities.dtos.StudentDto;
 
 public interface StudentValidatorService {
-	public boolean checkIfStudentInfoIsFull(Student student);
+	public boolean checkIfStudentInfoIsFull(StudentDto studentDto);
 }

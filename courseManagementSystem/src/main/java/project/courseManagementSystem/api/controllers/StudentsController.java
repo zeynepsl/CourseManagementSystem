@@ -14,6 +14,7 @@ import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Student;
+import project.courseManagementSystem.entities.dtos.StudentDto;
 
 @RestController
 @RequestMapping("/api/students")
@@ -27,8 +28,8 @@ public class StudentsController {
 	}
 	
 	@PostMapping("/register")
-	public Result register(@RequestBody Student student) {
-		return studentService.register(student);
+	public Result register(@RequestBody StudentDto studentDto) {
+		return studentService.register(studentDto);
 	}
 	
 	

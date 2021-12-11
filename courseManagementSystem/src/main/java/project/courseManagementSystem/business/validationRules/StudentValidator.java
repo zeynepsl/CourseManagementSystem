@@ -2,13 +2,13 @@ package project.courseManagementSystem.business.validationRules;
 
 import org.springframework.stereotype.Component;
 
-import project.courseManagementSystem.entities.concretes.Student;
+import project.courseManagementSystem.entities.dtos.StudentDto;
 
 @Component
 public class StudentValidator extends UserValidator implements StudentValidatorService{
 	
 	@Override
-	public boolean checkIfStudentInfoIsFull(Student student) {
+	public boolean checkIfStudentInfoIsFull(StudentDto student) {
 		String gender = student.getGender();
 		String schoolName = student.getSchoolName();
 		
