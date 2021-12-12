@@ -1,78 +1,48 @@
 package project.courseManagementSystem.api.controllers;
 
+import java.io.IOException;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.courseManagementSystem.business.abstracts.AuthService;
-import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.entities.User;
 import project.courseManagementSystem.core.utilities.results.DataResult;
-import project.courseManagementSystem.dataAccess.abstracts.RoleDao;
-import project.courseManagementSystem.dataAccess.abstracts.UserDao;
+import project.courseManagementSystem.core.utilities.results.Result;
+import project.courseManagementSystem.entities.dtos.InstructorDto;
 import project.courseManagementSystem.entities.dtos.LoginDto;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
+import project.courseManagementSystem.entities.dtos.StudentDto;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-	//Login islemi icin:
-	//@Autowired
-    //private AuthenticationManager authenticationManager;
+	private AuthService authService;
 
-    @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private RoleDao roleDao;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	public AuthController(AuthService authService) {
+		this.authService = authService;
+	} 
+	
+	@PostMapping("/login")
+	public DataResult<User> login(@RequestBody LoginDto loginDto){
+		return this.authService.login(loginDto);
+	}
+	
+	@PostMapping("/registerForStudent")
+	public Result registerForStudent(@RequestBody StudentDto studentDto){
+		return this.authService.registerForStudent(studentDto);
+	}
+	
+	@PostMapping("/registerForInstructor")
+	public Result registerForInstructor(@RequestBody InstructorDto instructorDto){
+		return this.authService.registerForInstructor(instructorDto);
+	}
     
-    @Autowired 
-    private AuthService authService;
-
-    @PostMapping("/login")
-    public DataResult<User> login(@RequestBody LoginDto loginDto){
-    	return authService.login(loginDto);
-    }
-     
-    //asagidaki metot deneme ogrenme amaclidir, dikkate almayin (dogru calisiyor)
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody User user){
-
-        // add check for username exists in a DB
-        if(userDao.existsByUsername(user.getUsername())){
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-        }
-        
-
-        // add check for email exists in DB
-        if(userDao.existsByEmail(user.getEmail())){
-            return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
-        }
-
-        // create user object
-        User savedUser = new User();
-        savedUser.setLastName(user.getLastName());
-        savedUser.setUsername(user.getUsername());
-        savedUser.setEmail(user.getEmail());
-        savedUser.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        List<Role> roles =roleDao.findByName("ROLE_ADMIN");
-       // user.setRoles(Collections.singleton(roles));
-        user.setRoles(roles);
-
-        userDao.save(savedUser);
-
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-
-    }
 }

@@ -3,6 +3,7 @@ package project.courseManagementSystem.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,7 +15,6 @@ import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Course;
-import project.courseManagementSystem.entities.dtos.CourseInfoDto;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -22,7 +22,7 @@ public class CourseController {
 	private CourseService courseService;
 	
 	@Autowired
-	public CourseController(CourseService courseService) {
+	public CourseController(@Lazy CourseService courseService) {
 		this.courseService = courseService;
 	}
 	
@@ -49,11 +49,6 @@ public class CourseController {
 	@GetMapping("/getAll")
 	public DataResult<List<Course>> getAll() {
 		return courseService.getAll();
-	}
-	
-	@GetMapping("/getAllInfo")
-	public DataResult<CourseInfoDto> getAllInfo(int courseId){
-		return courseService.getAllInfo(courseId);
 	}
 	
 	@PutMapping(("/{courseId}/instructor/{instructorId}"))

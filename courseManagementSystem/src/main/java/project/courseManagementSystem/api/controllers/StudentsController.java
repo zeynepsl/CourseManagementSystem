@@ -3,6 +3,7 @@ package project.courseManagementSystem.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,6 @@ import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Student;
-import project.courseManagementSystem.entities.dtos.StudentDto;
 
 @RestController
 @RequestMapping("/api/students")
@@ -22,16 +22,10 @@ public class StudentsController {
 	private StudentService studentService;
 
 	@Autowired
-	public StudentsController(StudentService studentService) {
+	public StudentsController(@Lazy StudentService studentService) {
 		super();
 		this.studentService = studentService;
 	}
-	
-	@PostMapping("/register")
-	public Result register(@RequestBody StudentDto studentDto) {
-		return studentService.register(studentDto);
-	}
-	
 	
 	@PostMapping("/delete")
 	public Result delete(@RequestParam int id) {

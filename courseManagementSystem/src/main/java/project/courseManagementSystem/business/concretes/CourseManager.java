@@ -3,6 +3,7 @@ package project.courseManagementSystem.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.CourseDao;
 import project.courseManagementSystem.entities.concretes.Course;
 import project.courseManagementSystem.entities.concretes.Instructor;
-import project.courseManagementSystem.entities.dtos.CourseInfoDto;
 
 @Service
 public class CourseManager implements CourseService {
@@ -29,9 +29,8 @@ public class CourseManager implements CourseService {
 	private InstructorService instructorService;
 
 	@Autowired
-	public CourseManager(CourseDao courseDao, CourseValidatorService courseValidatorService,
+	public CourseManager(@Lazy CourseDao courseDao, CourseValidatorService courseValidatorService,
 			InstructorService instructorService) {
-		super();
 		this.courseDao = courseDao;
 		this.courseValidatorService = courseValidatorService;
 		this.instructorService = instructorService;
@@ -59,13 +58,6 @@ public class CourseManager implements CourseService {
 
 	}
 	
-	// ---REFACTOR---
-	@Override
-	public Result addCourseWithAllInfo(CourseInfoDto courseInfoDto) {
-		//
-		return new SuccessResult("");
-	
-	} 
 	
 	//Course course1 = getById(courseInfoDto.getId()).getData();
 	/*
@@ -93,6 +85,7 @@ public class CourseManager implements CourseService {
 	courseDao.save(course);
 	 */
 	
+	/*
 	@Override
 	public DataResult<CourseInfoDto> getAllInfo(int courseId){
 		Course course = getById(courseId).getData();
@@ -106,7 +99,7 @@ public class CourseManager implements CourseService {
 		courseInfoDto.setInstructors(instructors);
 		
 		return new SuccessDataResult<CourseInfoDto>(courseInfoDto, "viewed!");
-	}
+	}*/
 	
 
 	@Override

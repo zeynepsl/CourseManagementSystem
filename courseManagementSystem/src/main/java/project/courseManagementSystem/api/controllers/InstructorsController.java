@@ -3,6 +3,7 @@ package project.courseManagementSystem.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,19 +23,8 @@ public class InstructorsController {
 	private InstructorService instructorService;
 
 	@Autowired
-	public InstructorsController(InstructorService instructorService) {
-		super();
+	public InstructorsController(@Lazy InstructorService instructorService) {
 		this.instructorService = instructorService;
-	}
-	
-	@PostMapping("/register")
-	public Result register(@RequestBody Instructor instructor) {
-		return instructorService.register(instructor);
-	}
-	
-	@PostMapping("/add")
-	public Result add(@RequestBody Instructor instructor) {
-		return instructorService.add(instructor);
 	}
 	
 	@PostMapping("/delete")

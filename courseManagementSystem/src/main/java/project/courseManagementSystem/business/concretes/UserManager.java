@@ -87,12 +87,11 @@ public class UserManager implements UserService{
 	
 	@Override
 	public DataResult<User> findByEmail(String email) {
-		for(User user: userDao.findAll()) {
-			if( (user.getEmail()).equals(email)) {
-				return new SuccessDataResult<User>(user, "user listed");
-			}
+		User user = userDao.findByEmail(email);
+		if(user == null) {
+			return new ErrorDataResult<User>(null, "user is not exist");
 		}
-		return new ErrorDataResult<User>(null, "user is not exist");
+		return new SuccessDataResult<User>(user, "user listed");	
 	}
 
 	@Override

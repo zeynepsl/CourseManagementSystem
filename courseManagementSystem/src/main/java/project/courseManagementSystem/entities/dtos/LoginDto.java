@@ -3,13 +3,12 @@ package project.courseManagementSystem.entities.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.courseManagementSystem.core.entities.Dto;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class LoginDto implements Dto{
+public class LoginDto{
 	private String password;
 	private String email;
 }
