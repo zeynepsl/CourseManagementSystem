@@ -7,37 +7,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
-@Table(name = "homeworks")
+@Table(name = "points")
 @Data
-@Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Homework {
+public class Point {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "url")
-	private String url;
+	@Column(name = "successGrade")
+	private int successGrade;
 	
-	@ManyToOne
-	@JoinColumn(name = "student_id")
-	private Student student;
-	
-	//name: Homeworks tablosunda ne yazacak
-	@OneToOne(mappedBy = "homework")
-	private Point point;
+	@Column(name = "comment")
+	private String comment;
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "homework_id", referencedColumnName = "id")
+	private Homework homework;
 }

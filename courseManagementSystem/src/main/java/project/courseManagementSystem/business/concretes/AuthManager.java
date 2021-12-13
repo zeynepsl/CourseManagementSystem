@@ -1,7 +1,5 @@
 package project.courseManagementSystem.business.concretes;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,13 +11,11 @@ import org.springframework.stereotype.Service;
 import project.courseManagementSystem.business.abstracts.AuthService;
 import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.business.abstracts.InstructorService;
-import project.courseManagementSystem.business.abstracts.RoleService;
 import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.business.abstracts.UserService;
 import project.courseManagementSystem.business.validationRules.InstructorValidatorService;
 import project.courseManagementSystem.business.validationRules.StudentValidatorService;
 import project.courseManagementSystem.core.email.EmailCheckService;
-import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.entities.User;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
@@ -38,7 +34,6 @@ import project.courseManagementSystem.entities.dtos.StudentDto;
 public class AuthManager implements AuthService {
 
 	private UserService userService;
-	private RoleService roleService;
 	private StudentService studentService;
 	private CourseService courseService;
 	private InstructorService instructorService;
@@ -52,13 +47,12 @@ public class AuthManager implements AuthService {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public AuthManager(UserService userService, RoleService roleService, StudentService studentService,
+	public AuthManager(UserService userService, StudentService studentService,
 			CourseService courseService, InstructorService instructorService,
 			StudentValidatorService studentValidatorService, InstructorValidatorService instructorValidatorService,
 			EmailCheckService emailCheckService, AuthenticationManager authenticationManager,
 			PasswordEncoder passwordEncoder) {
 		super();
-		this.roleService = roleService;
 		this.userService = userService;
 		this.studentService = studentService;	
 		this.courseService = courseService;
