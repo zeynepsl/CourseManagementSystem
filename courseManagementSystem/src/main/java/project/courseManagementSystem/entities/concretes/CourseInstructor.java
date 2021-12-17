@@ -6,33 +6,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*@Data
 @Entity
-@Table(name = "points")
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class Point {
-	@Id
+@NoArgsConstructor*/
+
+//PK bir bileşik anahtar
+//anahtarın farklı bölümlerini tutacak yeni bir sınıf oluşturmalıyız:
+public class CourseInstructor {
+	/*	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "successGrade")
-	private int successGrade;
+	@ManyToOne
+	@JoinColumn(name = "instructor_id")
+	Instructor instructor;
 	
-	@Column(name = "comment")
-	private String comment;
+	@ManyToOne
+	@JoinColumn(name = "course_id")
+	Course course;*/
 
-	//cascade = CascadeType.ALL
-	@OneToOne
-    @JoinColumn(name = "homework_id", referencedColumnName = "id")
-	private Homework homework;
+	
+	
 }

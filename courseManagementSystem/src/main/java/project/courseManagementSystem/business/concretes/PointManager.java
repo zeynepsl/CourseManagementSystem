@@ -53,6 +53,7 @@ public class PointManager implements PointService{
 		if(deletedPoint == null) {
 			return new ErrorResult("point is not exist");
 		}
+		pointDao.delete(deletedPoint);
 		return new SuccessResult("point deleted");
 	}
 

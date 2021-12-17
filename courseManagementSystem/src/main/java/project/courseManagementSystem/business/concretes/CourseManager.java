@@ -3,13 +3,13 @@ package project.courseManagementSystem.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.business.abstracts.InstructorService;
+import project.courseManagementSystem.business.abstracts.LessonService;
 import project.courseManagementSystem.business.validationRules.CourseValidatorService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
@@ -20,6 +20,8 @@ import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.CourseDao;
 import project.courseManagementSystem.entities.concretes.Course;
 import project.courseManagementSystem.entities.concretes.Instructor;
+import project.courseManagementSystem.entities.concretes.Lesson;
+import project.courseManagementSystem.entities.dtos.CourseDto;
 
 @Service
 public class CourseManager implements CourseService {
@@ -27,23 +29,29 @@ public class CourseManager implements CourseService {
 	private CourseDao courseDao;
 	private CourseValidatorService courseValidatorService;
 	private InstructorService instructorService;
+	private LessonService lessonService;
 
 	@Autowired
-	public CourseManager(@Lazy CourseDao courseDao, CourseValidatorService courseValidatorService,
-			InstructorService instructorService) {
+	public CourseManager(CourseDao courseDao, CourseValidatorService courseValidatorService,
+			InstructorService instructorService, LessonService lessonService) {
 		this.courseDao = courseDao;
 		this.courseValidatorService = courseValidatorService;
 		this.instructorService = instructorService;
+		this.lessonService = lessonService;
 	}
 
 	@Override
-	public Result add(Course entity) {
+	public Result save(CourseDto courseDto) {
 		try {
-			if (!courseValidatorService.checkIfCourseInfoIsFull(entity)) {
+			if (!courseValidatorService.checkIfCourseInfoIsFull(courseDto)) {
 				return new ErrorResult("enter course's all information completely");
 			}
+			Course course = new Course();
+			course.setStartDate(courseDto.getStartDate());
+			course.setEndDate(courseDto.getEndDate());
+			course.setName(courseDto.getName());
 			
-			courseDao.save(entity);
+			courseDao.save(course);
 			return new SuccessResult("course added");
 		} 
 		catch (NullPointerException ex) {
@@ -55,52 +63,20 @@ public class CourseManager implements CourseService {
 		catch (Exception e) {
 			return new ErrorResult(e.toString());
 		}
-
 	}
 	
+	@Override
+	public Result add(Course entity) {
+		return null;
+	}
 	
 	//Course course1 = getById(courseInfoDto.getId()).getData();
 	/*
-	 Course course = new Course();
-	
-	course.setName(courseInfoDto.getName());
-	course.setStartDate(courseInfoDto.getStartDate());
-	course.setEndDate(courseInfoDto.getEndDate());
 	
 	for(int ınstructorId : courseInfoDto.getInstructorIds()) {
 		Instructor instructor = instructorService.getById(ınstructorId).getData();
 		course.getEnrolledInstructors().add(instructor);
-	}
-	
-	for(int lessonId : courseInfoDto.getLessonIds()) {
-		Lesson lesson = lessonService.getById(lessonId).getData();
-		course.getLessons().add(lesson);
-	}
-	
-	for(int studentId : courseInfoDto.getStudentIds()) {
-		Student student = studentService.getById(studentId).getData();
-		course.getStudents().add(student);
-	}
-	
-	courseDao.save(course);
-	 */
-	
-	/*
-	@Override
-	public DataResult<CourseInfoDto> getAllInfo(int courseId){
-		Course course = getById(courseId).getData();
-		List<Instructor> instructors = course.getEnrolledInstructors();
-		
-		CourseInfoDto courseInfoDto = new CourseInfoDto();
-		
-		courseInfoDto.setName(course.getName());
-		courseInfoDto.setStartDate(course.getStartDate());
-		courseInfoDto.setEndDate(course.getEndDate());
-		courseInfoDto.setInstructors(instructors);
-		
-		return new SuccessDataResult<CourseInfoDto>(courseInfoDto, "viewed!");
 	}*/
-	
 
 	@Override
 	public Result delete(int id) {
@@ -151,6 +127,16 @@ public class CourseManager implements CourseService {
 		courseDao.save(course);
 		return new SuccessResult("kaydetme başarılı");
 	}
+	
+	@Override
+	public Result addLessonToCourse(int lessonId, int courseId) {
+		Lesson lesson = lessonService.getById(lessonId).getData();
+		Course course = getById(courseId).getData();
+		course.getEnrolledLessons().add(lesson);
+		courseDao.save(course);
+		return new SuccessResult("ders, kursa atandı");
+	}
+
 	
 
 

@@ -19,7 +19,7 @@ import project.courseManagementSystem.entities.concretes.Student;
 public class StudentManager implements StudentService {
 
 	private StudentDao studentDao;
-    
+
 	@Autowired
 	public StudentManager(StudentDao studentDao) {
 		super();
@@ -34,11 +34,19 @@ public class StudentManager implements StudentService {
 
 	@Override
 	public Result delete(int id) {
-		if (getById(id).getData() == null) {
-			return new ErrorResult("Student is not exist!");
+		try {
+			if (getById(id).getData() == null) {
+				return new ErrorResult("Student is not exist!");
+			}
+			studentDao.deleteById(id);
+			return new SuccessResult("Student deleted!");
+		} catch (Exception e) {
+			return new ErrorResult(e.getLocalizedMessage());
+			// TODO: handle exception
+			//org.postgresql.util.PSQLException: HATA: "students" tablosu üzerinde yapılan update veya delete işlemi "homeworks" tablosunun "fks7g9phygqbdtcoljm5ydbuhxg" bütünlük kısıtlamasını ihlal ediyor
+			//Ayrıntı: (user_id)=(4) anahtarı "homeworks" tablosundan hala referans edilmektedir.
 		}
-		studentDao.deleteById(id);
-		return new SuccessResult("Student deleted!");
+
 	}
 
 	@Override
@@ -87,6 +95,5 @@ public class StudentManager implements StudentService {
 	public DataResult<List<Student>> getAllByCourse_Id(int courseId) {
 		return new SuccessDataResult<List<Student>>(studentDao.getAllByCourse_Id(courseId), "Students listed");
 	}
-
 
 }

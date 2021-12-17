@@ -1,14 +1,17 @@
 package project.courseManagementSystem.business.concretes;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import project.courseManagementSystem.business.abstracts.HomeworkService;
-import project.courseManagementSystem.core.utilities.fileUpload.FileService;
+import project.courseManagementSystem.business.abstracts.StudentService;
+import project.courseManagementSystem.core.utilities.fileUpload.payload.Response;
+import project.courseManagementSystem.core.utilities.fileUpload.service.FileStorageService;
+import project.courseManagementSystem.core.utilities.imageUpload.FileService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -17,28 +20,55 @@ import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.HomeworkDao;
 import project.courseManagementSystem.entities.concretes.Homework;
+import project.courseManagementSystem.entities.concretes.Student;
 
 @Service
 public class HomeworkManager implements HomeworkService{
 
 	private HomeworkDao homeworkDao;
-	private FileService fileService; 
+	private FileStorageService fileStrorageService;
+	private StudentService studentService;
 	
 	@Autowired
-	public HomeworkManager(HomeworkDao homeworkDao, FileService fileService) {
+	public HomeworkManager(HomeworkDao homeworkDao, FileStorageService fileStrorageService,
+			StudentService studentService) {
 		this.homeworkDao = homeworkDao;
-		this.fileService = fileService;
+		this.fileStrorageService = fileStrorageService;
+		this.studentService = studentService;
 	}
 	
 	@Override
-	public Result upload(Homework homework, MultipartFile file) {
-		@SuppressWarnings("unchecked")
+	public DataResult<Response> upload(MultipartFile file, int studentId) {
+		String fileName = fileStrorageService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        Homework homework = new Homework();
+        homework.setFileName(fileName);
+        homework.setUploadDir(fileDownloadUri);
+        homework.setFileType(file.getContentType());
+        Student student = studentService.getById(studentId).getData();
+        homework.setStudent(student);
+        homework.setPoint(null);
+        
+        //byte[] b = BigInteger.valueOf(file.getSize()).toByteArray();
+        //databaseFile.setSize(BigInteger.valueOf(file.getSize()).toByteArray());
+        //var l = new BigInteger(b);
+        
+        homeworkDao.save(homework);
+        Response response = new Response(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+        return new SuccessDataResult<Response>(response, "added");
+        /*@SuppressWarnings("unchecked")
 		Map<String,String> uploadImage = 
 		(Map<String, String>) this.fileService.fileUpload(file).getData();
 		homework.setUrl(uploadImage.get("url"));
 		this.homeworkDao.save(homework);
 		return new SuccessResult(" added");
-		///return add(imageCV);
+		///return add(imageCV);*/
+		
 	}
 	
 	@Override
@@ -61,7 +91,7 @@ public class HomeworkManager implements HomeworkService{
 	public Result update(Homework entity) {
 		Homework updatedHomework = getById(entity.getId()).getData();
 		
-		updatedHomework.setUrl(entity.getUrl());
+		//updatedHomework.setUrl(entity.getUrl());
 		
 		homeworkDao.save(entity);
 		return new SuccessResult("updated");

@@ -1,4 +1,4 @@
-package project.courseManagementSystem.core.utilities.fileUpload;
+package project.courseManagementSystem.core.utilities.imageUpload;
 
 import java.io.IOException;
 import java.util.Map;

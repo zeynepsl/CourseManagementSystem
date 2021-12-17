@@ -56,6 +56,10 @@ public class Course {
 			)
 	private List<Instructor> enrolledInstructors;
 	
+	/*@JsonIgnoreProperties
+	@OneToMany(mappedBy = "course")
+	private List<CourseRating> ratings;*/
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
@@ -73,7 +77,5 @@ public class Course {
                                         , inverseJoinColumns={@JoinColumn(referencedColumnName="ID")})  
     private Set<SubscriptionEntity> subscriptions;*/
 	
-	public void setInstructor(Instructor instructor) {
-		enrolledInstructors.add(instructor);
-	}
+	
 }

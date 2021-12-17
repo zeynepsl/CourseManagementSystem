@@ -51,12 +51,11 @@ public class LessonManager implements LessonService{
 
 	@Override
 	public DataResult<Lesson> getById(int id) {
-		try { 
-			return new SuccessDataResult<Lesson>(lessonDao.findById(id), "lesson viewed");
-		} 
-		catch (Exception e) {
-			return new ErrorDataResult<Lesson>(null, e.getMessage());
+		Lesson lesson = lessonDao.findById(id);
+		if(lesson == null) {
+			return new ErrorDataResult<Lesson>(null, "not exist");
 		}
+		return new SuccessDataResult<Lesson>(lesson, "lesson viewed");
 		
 	}
 

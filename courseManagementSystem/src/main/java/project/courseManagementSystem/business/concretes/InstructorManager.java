@@ -37,13 +37,17 @@ public class InstructorManager implements InstructorService{
 
 	@Override
 	public Result delete(int id) {
-		
-		if(userService.existById(id)) {
+		try {
+			if(userService.existById(id)) {
 			instructorDao.deleteById(id);
 			return new SuccessResult("Instructor deleted!");
 		}
 		
 		return new ErrorResult("instructor is not exist");	
+		} catch (Exception e) {
+			return new ErrorResult(e.getLocalizedMessage());
+		}
+		
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Course;
+import project.courseManagementSystem.entities.dtos.CourseDto;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -26,9 +27,9 @@ public class CourseController {
 		this.courseService = courseService;
 	}
 	
-	@PostMapping("/add")
-	public Result add(@RequestBody Course course) {
-		return courseService.add(course);
+	@PostMapping("/save")
+	public Result save(@RequestBody CourseDto course) {
+		return courseService.save(course);
 	}
 	
 	@PostMapping("/delete")
@@ -55,6 +56,12 @@ public class CourseController {
 	public Result addInstructorToCourse(int instructorId, int courseId) {
 		return courseService.addInstructorToCourse(instructorId, courseId);
 	}
+	
+	@PutMapping("/{courseId}/lesson/{lessonId}")
+	public Result addLessonToCourse(int lessonId, int courseId) {
+		return courseService.addLessonToCourse(lessonId, courseId);
+	}
+	
 	/*
 	 	@PostMapping("addCourseWithAllInfo")
 	public Result addCourseWithAllInfo(@RequestBody CourseInfoDto courseInfoDto) {

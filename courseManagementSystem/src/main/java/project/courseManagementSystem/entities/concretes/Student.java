@@ -31,11 +31,9 @@ public class Student extends User{
 	// private int userId;
 	
 	@Column(name = "school_name")
-	@NotNull
 	private String schoolName;
 	
 	@Column(name = "gender")
-	@NotNull
 	private String gender;
 	
 	@ManyToOne

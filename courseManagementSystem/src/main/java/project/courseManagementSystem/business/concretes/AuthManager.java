@@ -1,5 +1,7 @@
 package project.courseManagementSystem.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -105,6 +107,10 @@ public class AuthManager implements AuthService {
 		if (userService.existByUsername(studentDto.getUsername())) {
 			return new ErrorResult("Username is already taken!");
 		}
+		List<Student> students = studentService.getAllByCourse_Id(studentDto.getCourseId()).getData();
+		if(students.size() > 5) {
+			return new ErrorResult("basarisiz");
+		}
 		Student student = new Student();
 
 		student.setBirthDate(studentDto.getBirthDate());
@@ -118,6 +124,8 @@ public class AuthManager implements AuthService {
 		student.setUsername(studentDto.getUsername());
 
 		Course course = courseService.getById(studentDto.getCourseId()).getData();
+
+		
 		student.setCourse(course);
 
 		student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
