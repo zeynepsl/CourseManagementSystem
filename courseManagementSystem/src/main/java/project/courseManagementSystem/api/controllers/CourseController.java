@@ -62,23 +62,10 @@ public class CourseController {
 		return courseService.addLessonToCourse(lessonId, courseId);
 	}
 	
-	/*
-	 	@PostMapping("addCourseWithAllInfo")
-	public Result addCourseWithAllInfo(@RequestBody CourseInfoDto courseInfoDto) {
-		return courseService.addCourseWithAllInfo(courseInfoDto);
+	@GetMapping("/findByName")
+	public DataResult<List<Course>> findByName(String name){
+		return courseService.findByName(name);
 	}
-	 */
-
-	/*	@PutMapping("{courseId}/instructors/{userId}")
-	public DataResult<Course> enrollInstructorToCourse(
-			@PathVariable int courseId,
-			@PathVariable int userId) {
-		Course course = courseService.getById(courseId).getData();
-		Instructor instructor = instructorService.getById(userId).getData();
-		course.getInstructors().add(instructor);
-		courseService.add(course);
-		return new SuccessDataResult<Course>(course,"added");
-	}
-	 * */
+	
 
 }

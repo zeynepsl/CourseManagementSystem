@@ -67,7 +67,6 @@ public class AuthManager implements AuthService {
 	}
 
 	public AuthManager() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -109,13 +108,13 @@ public class AuthManager implements AuthService {
 		}
 		List<Student> students = studentService.getAllByCourse_Id(studentDto.getCourseId()).getData();
 		if(students.size() > 5) {
-			return new ErrorResult("basarisiz");
+			return new ErrorResult("bir ders programında(kursta) en fazla 4 ogrenci olabilir");
 		}
 		Student student = new Student();
 
 		student.setBirthDate(studentDto.getBirthDate());
 		student.setEmail(studentDto.getEmail());
-		student.setFirstName(studentDto.getLastName());
+		student.setFirstName(studentDto.getFirstName());
 		student.setLastName(studentDto.getLastName());
 		student.setGender(studentDto.getGender());
 		student.setNationalityId(studentDto.getNationalityId());
@@ -124,8 +123,7 @@ public class AuthManager implements AuthService {
 		student.setUsername(studentDto.getUsername());
 
 		Course course = courseService.getById(studentDto.getCourseId()).getData();
-
-		
+	
 		student.setCourse(course);
 
 		student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
@@ -147,7 +145,7 @@ public class AuthManager implements AuthService {
 		}
 
 		if (!instructorValidatorService.checkIfInstructorInfoIsFull(instructorDto)) {
-			return new ErrorResult("enter all your information completely");
+			return new ErrorResult("enter all your information completely and accurately");
 		}
 
 		if (!emailCheckService.emailCheck(instructorDto.getEmail())) {

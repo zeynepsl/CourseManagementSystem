@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.courseManagementSystem.business.abstracts.InstructorService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.Result;
 import project.courseManagementSystem.entities.concretes.Instructor;
-import project.courseManagementSystem.entities.dtos.CoursesWithInstructorDto;
 
 @RestController
 @RequestMapping("/api/instructors")
@@ -45,17 +43,6 @@ public class InstructorsController {
 	@GetMapping("/getAll")
 	public DataResult<List<Instructor>> getAll() {
 		return instructorService.getAll();
-	}
-	
-	// --- TO DO ---
-	@PostMapping("/addInstructorToCourse")
-	public Result addInstructorToCourse(@RequestParam int instructorId,@RequestParam int courseId) {
-		return instructorService.addInstructorToCourse(instructorId, courseId);
-	}
-	
-	@GetMapping("getAllCoursesByInstructorId")
-	public DataResult<CoursesWithInstructorDto> getAllCoursesByInstructorId(@RequestParam int instructorId){
-		return instructorService.getAllCoursesByInstructorId(instructorId);
 	}
 	
 }

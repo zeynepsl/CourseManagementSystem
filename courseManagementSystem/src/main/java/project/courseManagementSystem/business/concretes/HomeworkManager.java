@@ -11,7 +11,6 @@ import project.courseManagementSystem.business.abstracts.HomeworkService;
 import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.core.utilities.fileUpload.payload.Response;
 import project.courseManagementSystem.core.utilities.fileUpload.service.FileStorageService;
-import project.courseManagementSystem.core.utilities.imageUpload.FileService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -89,10 +88,7 @@ public class HomeworkManager implements HomeworkService{
 
 	@Override
 	public Result update(Homework entity) {
-		Homework updatedHomework = getById(entity.getId()).getData();
-		
-		//updatedHomework.setUrl(entity.getUrl());
-		
+		//Homework updatedHomework = getById(entity.getId()).getData();
 		homeworkDao.save(entity);
 		return new SuccessResult("updated");
 	}

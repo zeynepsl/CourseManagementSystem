@@ -45,7 +45,6 @@ public class Homework {
 	@Column(name = "upload_dir")
 	private String uploadDir;
 	
-	//name: Homeworks tablosunda ne yazacak
 	@OneToOne(mappedBy = "homework")
 	private Point point;
 }

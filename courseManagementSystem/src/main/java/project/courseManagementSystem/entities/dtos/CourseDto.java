@@ -18,7 +18,4 @@ public class CourseDto {
 	private LocalDate endDate;
 	private List<Integer> studentIds;
 	
-	/*	private List<Integer> instructorIds;
-	private List<Integer> lessonIds;*/
-	
 }

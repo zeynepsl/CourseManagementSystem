@@ -29,10 +29,6 @@ public class Instructor extends User{
 	
 	@Column(name = "department_name")
 	private String departmentName;
-	
-	/*@JsonIgnoreProperties
-	@OneToMany(mappedBy = "instructor")
-	private List<CourseRating> ratings;*/
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "enrolledInstructors")

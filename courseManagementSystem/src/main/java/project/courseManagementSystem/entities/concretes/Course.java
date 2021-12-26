@@ -44,9 +44,6 @@ public class Course {
 	@Column(name = "endDate")
 	private LocalDate endDate;
 	
-	//****baeldung.com
-	//here is owning side -> Course:
-	//@JoinTable: in order to specify the owning side)
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
@@ -55,10 +52,6 @@ public class Course {
 			inverseJoinColumns = @JoinColumn(referencedColumnName = "user_id")
 			)
 	private List<Instructor> enrolledInstructors;
-	
-	/*@JsonIgnoreProperties
-	@OneToMany(mappedBy = "course")
-	private List<CourseRating> ratings;*/
 	
 	@JsonIgnore
 	@ManyToMany
@@ -71,11 +64,5 @@ public class Course {
 	@JsonIgnoreProperties
 	@OneToMany(mappedBy = "course")
 	private List<Student> students;
-	
-	/*@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="ID")}
-                                        , inverseJoinColumns={@JoinColumn(referencedColumnName="ID")})  
-    private Set<SubscriptionEntity> subscriptions;*/
-	
 	
 }

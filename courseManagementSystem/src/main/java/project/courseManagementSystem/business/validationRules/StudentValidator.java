@@ -18,16 +18,6 @@ public class StudentValidator extends UserValidator implements StudentValidatorS
 			return false;
 		}
 		return true;
-	}
-		
-	/*
-	 	 
- StringUtils.isBlank(null)      = true
- StringUtils.isBlank("")        = true  
- StringUtils.isBlank(" ")       = true  
- StringUtils.isBlank("bob")     = false  
- StringUtils.isBlank("  bob  ") = false
- 
-	 */
+	} 
 	
 }

@@ -1,5 +1,6 @@
 package project.courseManagementSystem.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.business.abstracts.InstructorService;
 import project.courseManagementSystem.business.abstracts.LessonService;
+import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.business.validationRules.CourseValidatorService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
@@ -21,6 +23,7 @@ import project.courseManagementSystem.dataAccess.abstracts.CourseDao;
 import project.courseManagementSystem.entities.concretes.Course;
 import project.courseManagementSystem.entities.concretes.Instructor;
 import project.courseManagementSystem.entities.concretes.Lesson;
+import project.courseManagementSystem.entities.concretes.Student;
 import project.courseManagementSystem.entities.dtos.CourseDto;
 
 @Service
@@ -30,14 +33,16 @@ public class CourseManager implements CourseService {
 	private CourseValidatorService courseValidatorService;
 	private InstructorService instructorService;
 	private LessonService lessonService;
+	private StudentService studentService;
 
 	@Autowired
 	public CourseManager(CourseDao courseDao, CourseValidatorService courseValidatorService,
-			InstructorService instructorService, LessonService lessonService) {
+			InstructorService instructorService, LessonService lessonService, StudentService studentService) {
 		this.courseDao = courseDao;
 		this.courseValidatorService = courseValidatorService;
 		this.instructorService = instructorService;
 		this.lessonService = lessonService;
+		this.studentService = studentService;
 	}
 
 	@Override
@@ -50,6 +55,15 @@ public class CourseManager implements CourseService {
 			course.setStartDate(courseDto.getStartDate());
 			course.setEndDate(courseDto.getEndDate());
 			course.setName(courseDto.getName());
+			
+			List<Student> students = new ArrayList<Student>();
+			for (Integer id : courseDto.getStudentIds()) {
+				Student student = studentService.getById(id).getData();
+				student.setCourse(course);
+				students.add(student);
+			}
+			course.setStudents(students);
+			
 			
 			courseDao.save(course);
 			return new SuccessResult("course added");
@@ -69,14 +83,6 @@ public class CourseManager implements CourseService {
 	public Result add(Course entity) {
 		return null;
 	}
-	
-	//Course course1 = getById(courseInfoDto.getId()).getData();
-	/*
-	
-	for(int ınstructorId : courseInfoDto.getInstructorIds()) {
-		Instructor instructor = instructorService.getById(ınstructorId).getData();
-		course.getEnrolledInstructors().add(instructor);
-	}*/
 
 	@Override
 	public Result delete(int id) {
@@ -135,6 +141,11 @@ public class CourseManager implements CourseService {
 		course.getEnrolledLessons().add(lesson);
 		courseDao.save(course);
 		return new SuccessResult("ders, kursa atandı");
+	}
+
+	@Override
+	public DataResult<List<Course>> findByName(String name) {
+		return new SuccessDataResult<List<Course>>(courseDao.findByName(name), "listed");
 	}
 
 	

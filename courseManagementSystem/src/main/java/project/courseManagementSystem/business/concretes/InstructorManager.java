@@ -15,7 +15,6 @@ import project.courseManagementSystem.core.utilities.results.SuccessDataResult;
 import project.courseManagementSystem.core.utilities.results.SuccessResult;
 import project.courseManagementSystem.dataAccess.abstracts.InstructorDao;
 import project.courseManagementSystem.entities.concretes.Instructor;
-import project.courseManagementSystem.entities.dtos.CoursesWithInstructorDto;
 
 @Service
 public class InstructorManager implements InstructorService{
@@ -79,33 +78,6 @@ public class InstructorManager implements InstructorService{
 		return new SuccessDataResult<List<Instructor>>(instructorDao.findAll(), "Instructors listed");
 	}
 	
-	// TO DO:
-	/*
-	 		Instructor instructor = getById(instructorId).getData();
-		Course course = courseService.getById(courseId).getData();
-		instructor.getEnrolledCourses().add(course);
-		instructorDao.save(instructor);
-	 
-	 */
-	
-	// --- TO DO ---
-	@Override
-	public Result addInstructorToCourse(int instructorId, int courseId) {
-		return new SuccessResult("succesfull");
-	}
-	
-	@Override
-	public DataResult<CoursesWithInstructorDto> getAllCoursesByInstructorId(int instructorId){
-		/*	Instructor instructor = getById(instructorId).getData();
-		
-		CoursesWithInstructorDto coursesWithInstructorDto = new CoursesWithInstructorDto();
-		
-		coursesWithInstructorDto.setEmail(instructor.getEmail());
-		coursesWithInstructorDto.setCourses(instructor.getCourses());
-		
-		return new SuccessDataResult<CoursesWithInstructorDto>(coursesWithInstructorDto,"bir eğitmene ait kurslar listelendi");*/
-		return null;
-	} 
 	
 	public DataResult<List<Instructor>> birKurstakiEgitmenler(int courseId){
 		//Course course = courseService.getById(courseId).getData();

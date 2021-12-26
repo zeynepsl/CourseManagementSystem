@@ -9,15 +9,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
+
+/*@Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+*/
+
 /*Birincil anahtarımız bir bileşik anahtar olduğundan, anahtarın farklı bölümlerini tutacak yeni bir sınıf oluşturmamız gerekiyor */
-public class CourseRatingKey implements Serializable{
+public class CourseRatingKey {
 	/**
-	 * 
-	 */
+	implements Serializable
+	
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "instructor_id")
@@ -25,5 +28,7 @@ public class CourseRatingKey implements Serializable{
 	
 	@Column(name = "course_id")
 	private int courseId;
+	 */
+	
 
 }

@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService{
                 user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 		 
 		 */
-		/*java guides ramesh*/
+		/*java guides rsh*/
 		User user = userDao.findByEmail(usernameOrEmail);
 		if(user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
