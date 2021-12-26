@@ -66,14 +66,14 @@
         - [SecurityConfig.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/security/SecurityConfig.java)
     - *[utilities](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities)*
         - *[fileUpload](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload)*
-            - [exception](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/exception)
-            - [payload](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/payload)
-            - [service](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/service)
+            - *[exception](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/exception)*
+            - *[payload](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/payload)*
+            - *[service](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/service)*
             - [FileStorageProperties.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/fileUpload/FileStorageProperties.java)
-        - [imageUpload](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/imageUpload)
-        - [results](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/results)
+        - *[imageUpload](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/imageUpload)*
+        - *[results](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/results)*
 - ***[Business](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business)***
-    - [abstracts](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts)
+    - *[abstracts](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts)*
         - [AuthService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts/AuthService.java)
         - [CourseService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts/CourseService.java)
         - [HomeworkService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts/HomeworkService.java)
@@ -83,7 +83,7 @@
         - [RoleService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts/RoleService.java)
         - [StudentService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts/StudentService.java)
         - [UserService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/abstracts/UserService.java)
-    - [concretes](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes)
+    - *[concretes](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes)*
         - [AuthManager.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes/AuthManager.java)
         - [CourseManager.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes/CourseManager.java)
         - [HomeworkManager.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes/HomeworkManager.java)
@@ -93,7 +93,7 @@
         - [RoleManager.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes/RoleManager.java)
         - [StudentManager.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes/StudentManager.java)
         - [UserManager.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/concretes/UserManager.java)
-    - [validation rules](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/validationRules)
+    - *[validation rules](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/validationRules)*
         - [CourseValidator.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/validationRules/CourseValidator.java)
         - [CourseValidatorService.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/validationRules/CourseValidatorService.java)
         - [InstructorValidator.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/business/validationRules/InstructorValidator.java)
