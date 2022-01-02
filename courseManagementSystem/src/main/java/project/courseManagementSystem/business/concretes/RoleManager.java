@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.RoleService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
@@ -28,41 +29,41 @@ public class RoleManager implements RoleService{
 	@Override
 	public Result add(Role entity) {
 		roleDao.save(entity);
-		return new SuccessResult("added");
+		return new SuccessResult(Messages.added);
 	}
 
 	@Override
 	public Result delete(int id) {
 		if(getById(id).getData() == null) {
-			return new ErrorResult("role is not exist");
+			return new ErrorResult(Messages.isNotExist);
 		}
 		roleDao.deleteById(id);
-		return new SuccessResult("role deleted");
+		return new SuccessResult(Messages.deleted);
 	}
 
 	@Override
 	public Result update(Role entity) {
 		roleDao.save(entity);
-		return new SuccessResult("role updated");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Role> getById(int id) {
 		Role role = roleDao.findById(id).get();
 		if(role == null) {
-			return new ErrorDataResult<Role>(null, "role is not exist");
+			return new ErrorDataResult<Role>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Role>(role, "role viewed");
+		return new SuccessDataResult<Role>(role, Messages.viewed);
 	}
 
 	@Override
 	public DataResult<List<Role>> getAll() {
-		return new SuccessDataResult<List<Role>>(roleDao.findAll(), "roles listed");
+		return new SuccessDataResult<List<Role>>(roleDao.findAll(), Messages.listed);
 	}
 
 	@Override
 	public DataResult<List<Role>> findByName(String roleName) {
-		return new SuccessDataResult<List<Role>>(roleDao.findByName(roleName), "roles listed");
+		return new SuccessDataResult<List<Role>>(roleDao.findByName(roleName), Messages.listed);
 	}
 
 }

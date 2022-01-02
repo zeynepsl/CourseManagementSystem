@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.InstructorService;
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -31,7 +32,7 @@ public class InstructorManager implements InstructorService{
 	@Override
 	public Result add(Instructor entity) {
 		instructorDao.save(entity);
-		return new SuccessResult("Instructor added!");
+		return new SuccessResult(Messages.added);
 	}
 
 	@Override
@@ -39,10 +40,10 @@ public class InstructorManager implements InstructorService{
 		try {
 			if(userService.existById(id)) {
 			instructorDao.deleteById(id);
-			return new SuccessResult("Instructor deleted!");
+			return new SuccessResult(Messages.deleted);
 		}
 		
-		return new ErrorResult("instructor is not exist");	
+		return new ErrorResult(Messages.isNotExist);	
 		} catch (Exception e) {
 			return new ErrorResult(e.getLocalizedMessage());
 		}
@@ -61,28 +62,22 @@ public class InstructorManager implements InstructorService{
 		updatedUser.setNationalityId(entity.getNationalityId());
 		
 		instructorDao.save(updatedUser);
-		return new SuccessResult("Instructor updated!");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Instructor> getById(int id) {
 		Instructor instructor = instructorDao.findById(id);
 		if(instructor == null) {
-			return new ErrorDataResult<Instructor>(null, "Instructor is not exist");
+			return new ErrorDataResult<Instructor>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Instructor>(instructorDao.findById(id), "Instructor viewed!");
+		return new SuccessDataResult<Instructor>(instructorDao.findById(id), Messages.viewed);
 	}
 
 	@Override
 	public DataResult<List<Instructor>> getAll() {
-		return new SuccessDataResult<List<Instructor>>(instructorDao.findAll(), "Instructors listed");
+		return new SuccessDataResult<List<Instructor>>(instructorDao.findAll(), Messages.listed);
 	}
 	
-	
-	public DataResult<List<Instructor>> birKurstakiEgitmenler(int courseId){
-		//Course course = courseService.getById(courseId).getData();
-		//course
-		return null;
-	}
 
 }

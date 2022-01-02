@@ -12,6 +12,7 @@ import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.business.abstracts.InstructorService;
 import project.courseManagementSystem.business.abstracts.LessonService;
 import project.courseManagementSystem.business.abstracts.StudentService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.business.validationRules.CourseValidatorService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
@@ -49,7 +50,7 @@ public class CourseManager implements CourseService {
 	public Result save(CourseDto courseDto) {
 		try {
 			if (!courseValidatorService.checkIfCourseInfoIsFull(courseDto)) {
-				return new ErrorResult("enter course's all information completely");
+				return new ErrorResult(Messages.enterAllInfo);
 			}
 			Course course = new Course();
 			course.setStartDate(courseDto.getStartDate());
@@ -66,7 +67,7 @@ public class CourseManager implements CourseService {
 			
 			
 			courseDao.save(course);
-			return new SuccessResult("course added");
+			return new SuccessResult(Messages.added);
 		} 
 		catch (NullPointerException ex) {
 			return new ErrorResult(ex.toString());
@@ -88,10 +89,10 @@ public class CourseManager implements CourseService {
 	public Result delete(int id) {
 		try {
 			if(getById(id).getData() == null) {
-				return new ErrorResult("course is not exist");
+				return new ErrorResult(Messages.isNotExist);
 			}
 			courseDao.deleteById(id);
-			return new SuccessResult("course deleted");
+			return new SuccessResult(Messages.deleted);
 		} 
 		//Veri Bütünlüğü İhlali İstisnası:
 		//eğer silmek istediğim kurs, 
@@ -107,21 +108,21 @@ public class CourseManager implements CourseService {
 	@Override
 	public Result update(Course entity) {
 		courseDao.save(entity);
-		return new SuccessResult("course updated");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Course> getById(int id) {
 		Course course = courseDao.findById(id);
 		if(course == null) {
-			return new ErrorDataResult<Course>(null, "course is not exist");
+			return new ErrorDataResult<Course>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Course>(course, "course viewed");
+		return new SuccessDataResult<Course>(course, Messages.viewed);
 	}
 
 	@Override
 	public DataResult<List<Course>> getAll() {
-		return new SuccessDataResult<List<Course>>(courseDao.findAll(), "courses listed");
+		return new SuccessDataResult<List<Course>>(courseDao.findAll(), Messages.listed);
 	}
 	
 	
@@ -131,7 +132,7 @@ public class CourseManager implements CourseService {
 		Course course = getById(courseId).getData();
 		course.getEnrolledInstructors().add(instructor);
 		courseDao.save(course);
-		return new SuccessResult("kaydetme başarılı");
+		return new SuccessResult(Messages.instructorAddedToCourse);
 	}
 	
 	@Override
@@ -140,12 +141,12 @@ public class CourseManager implements CourseService {
 		Course course = getById(courseId).getData();
 		course.getEnrolledLessons().add(lesson);
 		courseDao.save(course);
-		return new SuccessResult("ders, kursa atandı");
+		return new SuccessResult(Messages.lessonAddedToCourse);
 	}
 
 	@Override
 	public DataResult<List<Course>> findByName(String name) {
-		return new SuccessDataResult<List<Course>>(courseDao.findByName(name), "listed");
+		return new SuccessDataResult<List<Course>>(courseDao.findByName(name), Messages.listed);
 	}
 
 	

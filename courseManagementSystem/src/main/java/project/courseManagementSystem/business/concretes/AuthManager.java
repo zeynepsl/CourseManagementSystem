@@ -15,6 +15,7 @@ import project.courseManagementSystem.business.abstracts.CourseService;
 import project.courseManagementSystem.business.abstracts.InstructorService;
 import project.courseManagementSystem.business.abstracts.StudentService;
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.business.validationRules.InstructorValidatorService;
 import project.courseManagementSystem.business.validationRules.StudentValidatorService;
 import project.courseManagementSystem.core.email.EmailCheckService;
@@ -74,41 +75,42 @@ public class AuthManager implements AuthService {
 		try {
 			User userToCheck = userService.findByEmail(loginDto.getEmail()).getData();
 			if (userToCheck == null) {
-				return new ErrorDataResult<User>(null, "user not found");
+				return new ErrorDataResult<User>(null, Messages.userNotFound);
 			}
 
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-			return new SuccessDataResult<User>(userToCheck, "User login successfully");
+			return new SuccessDataResult<User>(userToCheck, Messages.successLogin);
 		} catch (Exception e) {
-			return new ErrorDataResult<User>(null, "wrong password");
+			return new ErrorDataResult<User>(null, Messages.wrongPassword);
 		}
 
 	}
 
+	
 	@Override
 	public Result registerForStudent(StudentDto studentDto) {
 
 		if (userService.existsByEmail(studentDto.getEmail())) {
-			return new ErrorResult("this student is already exist");
+			return new ErrorResult(Messages.userExist);
 		}
 
 		if (!studentValidatorService.checkIfStudentInfoIsFull(studentDto)) {
-			return new ErrorResult("enter all your information completely");
+			return new ErrorResult(Messages.enterAllInfo);
 		}
 
 		if (!emailCheckService.emailCheck(studentDto.getEmail())) {
-			return new ErrorResult("invalid email");
+			return new ErrorResult(Messages.invalidEmail);
 		}
 
 		if (userService.existByUsername(studentDto.getUsername())) {
-			return new ErrorResult("Username is already taken!");
+			return new ErrorResult(Messages.usernameIsAlreadyTaken);
 		}
 		List<Student> students = studentService.getAllByCourse_Id(studentDto.getCourseId()).getData();
 		if(students.size() > 5) {
-			return new ErrorResult("bir ders programında(kursta) en fazla 4 ogrenci olabilir");
+			return new ErrorResult(Messages.maxFourStudentCanBe);
 		}
 		Student student = new Student();
 
@@ -131,25 +133,25 @@ public class AuthManager implements AuthService {
 		// ilgili öğrenciye ilgili rolü atamayi UaserManager da yapiyoruz
 		studentService.add(student);
 
-		return new SuccessResult("Successfully registered");
+		return new SuccessResult(Messages.successRegister);
 	}
 
 	@Override
 	public Result registerForInstructor(InstructorDto instructorDto) {
 		if (userService.existsByEmail(instructorDto.getEmail())) {
-			return new ErrorResult("instructor is already exist, taken");
+			return new ErrorResult(Messages.userExist);
 		}
 
 		if (userService.existByUsername(instructorDto.getUsername())) {
-			return new ErrorResult("Username is already taken!");
+			return new ErrorResult(Messages.usernameIsAlreadyTaken);
 		}
 
 		if (!instructorValidatorService.checkIfInstructorInfoIsFull(instructorDto)) {
-			return new ErrorResult("enter all your information completely and accurately");
+			return new ErrorResult(Messages.enterAllInfo);
 		}
 
 		if (!emailCheckService.emailCheck(instructorDto.getEmail())) {
-			return new ErrorResult("invalid email");
+			return new ErrorResult(Messages.invalidEmail);
 		}
 
 		Instructor instructor = new Instructor();
@@ -168,7 +170,7 @@ public class AuthManager implements AuthService {
 		// ilgili kursu atamayi CourseManger da, ilgili rolü atamayi UaserManager da yapiyoruz
 
 		instructorService.add(instructor);
-		return new SuccessResult("Successfully registered");
+		return new SuccessResult(Messages.successRegister);
 	}
 
 }

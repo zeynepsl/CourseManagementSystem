@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.StudentService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -29,17 +30,17 @@ public class StudentManager implements StudentService {
 	@Override
 	public Result add(Student entity) {
 		studentDao.save(entity);
-		return new SuccessResult("Student added!");
+		return new SuccessResult(Messages.added);
 	}
 
 	@Override
 	public Result delete(int id) {
 		try {
 			if (getById(id).getData() == null) {
-				return new ErrorResult("Student is not exist!");
+				return new ErrorResult(Messages.isNotExist);
 			}
 			studentDao.deleteById(id);
-			return new SuccessResult("Student deleted!");
+			return new SuccessResult(Messages.deleted);
 		} catch (Exception e) {
 			return new ErrorResult(e.getLocalizedMessage());
 			// TODO: handle exception
@@ -64,36 +65,36 @@ public class StudentManager implements StudentService {
 		updatedStudent.setSchoolName(entity.getSchoolName());
 
 		studentDao.save(updatedStudent);
-		return new SuccessResult("Student updated!");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Student> getById(int id) {
 		Student student = studentDao.findById(id);
 		if (student == null) {
-			return new ErrorDataResult<Student>(null, "Student is not exist!");
+			return new ErrorDataResult<Student>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Student>(student, "Student viewed!");
+		return new SuccessDataResult<Student>(student, Messages.viewed);
 	}
 
 	@Override
 	public DataResult<List<Student>> getAll() {
-		return new SuccessDataResult<List<Student>>(studentDao.findAll(), "Students listed");
+		return new SuccessDataResult<List<Student>>(studentDao.findAll(), Messages.listed);
 	}
 
 	@Override
 	public DataResult<Student> getByEmail(String email) {
 		Student student = studentDao.findByEmail(email);
 		if (student == null) {
-			return new ErrorDataResult<Student>(null, "Student is not exist!");
+			return new ErrorDataResult<Student>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Student>(student, "Student viewed!");
+		return new SuccessDataResult<Student>(student, Messages.viewed);
 
 	}
 
 	@Override
 	public DataResult<List<Student>> getAllByCourse_Id(int courseId) {
-		return new SuccessDataResult<List<Student>>(studentDao.getAllByCourse_Id(courseId), "Students listed");
+		return new SuccessDataResult<List<Student>>(studentDao.getAllByCourse_Id(courseId), Messages.listed);
 	}
 
 }

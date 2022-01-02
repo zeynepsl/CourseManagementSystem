@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.RoleService;
 import project.courseManagementSystem.business.abstracts.UserService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.entities.Role;
 import project.courseManagementSystem.core.entities.User;
 import project.courseManagementSystem.core.utilities.results.DataResult;
@@ -19,7 +20,6 @@ import project.courseManagementSystem.dataAccess.abstracts.UserDao;
 @Service
 public class UserManager implements UserService{
 
-	//you need to access to dataAccess layer. So:
 	private UserDao userDao; 
 	private RoleService roleService;
 
@@ -33,29 +33,29 @@ public class UserManager implements UserService{
 	@Override
 	public Result add(User entity) {
 		userDao.save(entity);
-		return new SuccessResult("User added!");
+		return new SuccessResult(Messages.added);
 	}
 	@Override
 	public Result delete(int id) {
 		userDao.deleteById(id);
-		return new SuccessResult("User deleted!");
+		return new SuccessResult(Messages.deleted);
 	}
 	@Override
 	public Result update(User entity) {
 		userDao.save(entity);
-		return new SuccessResult("User updated!");
+		return new SuccessResult(Messages.updated);
 	}
 	@Override
 	public DataResult<User> getById(int id) {
 		User user = userDao.findById(id).get();
 		if(user == null) {
-			return new ErrorDataResult<User>(null, "user is not exist");
+			return new ErrorDataResult<User>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<User>(user, "User viewed!");
+		return new SuccessDataResult<User>(user, Messages.viewed);
 	}
 	@Override
 	public DataResult<List<User>> getAll() {
-		return new SuccessDataResult<List<User>>(userDao.findAll(), "Users listed!");
+		return new SuccessDataResult<List<User>>(userDao.findAll(), Messages.listed);
 	}
 
 	@Override
@@ -89,9 +89,9 @@ public class UserManager implements UserService{
 	public DataResult<User> findByEmail(String email) {
 		User user = userDao.findByEmail(email);
 		if(user == null) {
-			return new ErrorDataResult<User>(null, "user is not exist");
+			return new ErrorDataResult<User>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<User>(user, "user listed");	
+		return new SuccessDataResult<User>(user, Messages.listed);	
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class UserManager implements UserService{
 		User user = getById(userId).getData();
 		user.getRoles().add(role);
 		userDao.save(user);
-		return new SuccessResult("rol, ilgili user a atandı");
+		return new SuccessResult(Messages.roleAddedToUser);
 	}
 
 }

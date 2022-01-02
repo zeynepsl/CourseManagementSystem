@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import project.courseManagementSystem.business.abstracts.HomeworkService;
 import project.courseManagementSystem.business.abstracts.StudentService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.utilities.fileUpload.payload.Response;
 import project.courseManagementSystem.core.utilities.fileUpload.service.FileStorageService;
 import project.courseManagementSystem.core.utilities.results.DataResult;
@@ -53,58 +54,47 @@ public class HomeworkManager implements HomeworkService{
         homework.setStudent(student);
         homework.setPoint(null);
         
-        //byte[] b = BigInteger.valueOf(file.getSize()).toByteArray();
-        //databaseFile.setSize(BigInteger.valueOf(file.getSize()).toByteArray());
-        //var l = new BigInteger(b);
-        
         homeworkDao.save(homework);
         Response response = new Response(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-        return new SuccessDataResult<Response>(response, "added");
-        /*@SuppressWarnings("unchecked")
-		Map<String,String> uploadImage = 
-		(Map<String, String>) this.fileService.fileUpload(file).getData();
-		homework.setUrl(uploadImage.get("url"));
-		this.homeworkDao.save(homework);
-		return new SuccessResult(" added");
-		///return add(imageCV);*/
+        return new SuccessDataResult<Response>(response, Messages.added);
 		
 	}
 	
 	@Override
 	public Result add(Homework entity) {
 		homeworkDao.save(entity);
-		return new SuccessResult(" eklendi");
+		return new SuccessResult(Messages.added);
 	}
 
 	@Override
 	public Result delete(int id) {
 		Homework homework = getById(id).getData();
 		if(homework == null) {
-			return new ErrorResult("homework is not exist");
+			return new ErrorResult(Messages.isNotExist);
 		}
 		homeworkDao.deleteById(id);
-		return new SuccessResult("deleted");
+		return new SuccessResult(Messages.deleted);
 	}
 
 	@Override
 	public Result update(Homework entity) {
 		//Homework updatedHomework = getById(entity.getId()).getData();
 		homeworkDao.save(entity);
-		return new SuccessResult("updated");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Homework> getById(int id) {
 		Homework homework = homeworkDao.findById(id);
 		if(homework == null) {
-			return new ErrorDataResult<Homework>(null, "homework is not exist");
+			return new ErrorDataResult<Homework>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Homework>(homework, "homework viewed");
+		return new SuccessDataResult<Homework>(homework, Messages.viewed);
 	}
 
 	@Override
 	public DataResult<List<Homework>> getAll() {
-		return new SuccessDataResult<List<Homework>>(homeworkDao.findAll(), "listed");
+		return new SuccessDataResult<List<Homework>>(homeworkDao.findAll(), Messages.listed);
 	}
 
 

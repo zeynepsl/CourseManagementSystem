@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.LessonService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -30,39 +31,38 @@ public class LessonManager implements LessonService{
 	public Result add(Lesson entity) {
 		try {
 			lessonDao.save(entity);
-			return new SuccessResult("lesson added");
+			return new SuccessResult(Messages.added);
 		} catch (Exception e) {
 			return new ErrorResult(e.getMessage());
 		}
-		
 	}
 
 	@Override
 	public Result delete(int id) {
 		lessonDao.deleteById(id);
-		return new SuccessResult("lesson deleted");
+		return new SuccessResult(Messages.deleted);
 	}
 
 	@Override
 	public Result update(Lesson entity) {
 		lessonDao.save(entity);
-		return new SuccessResult("lesson updated");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Lesson> getById(int id) {
 		Lesson lesson = lessonDao.findById(id);
 		if(lesson == null) {
-			return new ErrorDataResult<Lesson>(null, "not exist");
+			return new ErrorDataResult<Lesson>(null, Messages.isNotExist);
 		}
-		return new SuccessDataResult<Lesson>(lesson, "lesson viewed");
+		return new SuccessDataResult<Lesson>(lesson, Messages.viewed);
 		
 	}
 
 	@Override
 	public DataResult<List<Lesson>> getAll() {
 		try {
-			return new SuccessDataResult<List<Lesson>>(lessonDao.findAll(), "lesson listed");
+			return new SuccessDataResult<List<Lesson>>(lessonDao.findAll(), Messages.listed);
 		} catch (Exception e) {
 			return new ErrorDataResult<List<Lesson>>(null, e.getLocalizedMessage());
 		}

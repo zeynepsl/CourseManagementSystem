@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.courseManagementSystem.business.abstracts.HomeworkService;
 import project.courseManagementSystem.business.abstracts.PointService;
+import project.courseManagementSystem.business.constants.Messages;
 import project.courseManagementSystem.core.utilities.results.DataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
 import project.courseManagementSystem.core.utilities.results.ErrorResult;
@@ -39,7 +40,7 @@ public class PointManager implements PointService{
 		Homework homework = homeworkService.getById(pointDto.getHomeworkId()).getData();
 		point.setHomework(homework);
 		pointDao.save(point);
-		return new SuccessResult("added");
+		return new SuccessResult(Messages.added);
 	}
 
 	@Override
@@ -51,30 +52,30 @@ public class PointManager implements PointService{
 	public Result delete(int id) {
 		Point deletedPoint = getById(id).getData();
 		if(deletedPoint == null) {
-			return new ErrorResult("point is not exist");
+			return new ErrorResult(Messages.isNotExist);
 		}
 		pointDao.delete(deletedPoint);
-		return new SuccessResult("point deleted");
+		return new SuccessResult(Messages.deleted);
 	}
 
 	@Override
 	public Result update(Point entity) {
 		pointDao.save(entity);
-		return new SuccessResult("updated");
+		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
 	public DataResult<Point> getById(int id) {
 		Point point = pointDao.findById(id);
 		if(point == null) {
-			return new ErrorDataResult<Point>(null, "point is not exist");
+			return new ErrorDataResult<Point>(null,Messages.isNotExist);
 		}
-		return new SuccessDataResult<Point>(point, "point viewed");
+		return new SuccessDataResult<Point>(point, Messages.viewed);
 	}
 
 	@Override
 	public DataResult<List<Point>> getAll() {
-		return new SuccessDataResult<List<Point>>(pointDao.findAll(), "points listed");
+		return new SuccessDataResult<List<Point>>(pointDao.findAll(), Messages.listed);
 	}
 
 }
