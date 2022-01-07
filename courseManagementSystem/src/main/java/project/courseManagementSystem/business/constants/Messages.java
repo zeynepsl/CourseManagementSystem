@@ -20,7 +20,7 @@ public class Messages {
 	public static String instructorAddedToCourse = "Instructor assigned to course";
 	public static String lessonAddedToCourse = "lesson assigned to course";
 	public static String roleAddedToUser = "role assigned to user";
-
+	public static String validationErrors = "validation errors";
 }
 
 
