@@ -24,6 +24,14 @@
 - Autowired in SpringFramework structure is used for IoC.
 
 
+## Documents
+- note:
+Since this project is prepared for school, the language of the documents is Turkish. You can use google translate to translate it into your language. If there is anything you want to ask, please [contact me](https://www.linkedin.com/in/zeynepsalman/) without hesitation.
+[SOFTWARE REQUIREMENTS SPECIFİCATIONS DOCUMENT - SRS](https://github.com/zeynepsl/CourseManagementSystem/blob/master/raporlar/analizRaporu-SRS.docx)
+[SOFTWARE DESİGN DOCUMENT - SDS](https://github.com/zeynepsl/CourseManagementSystem/blob/master/raporlar/tasar%C4%B1mRaporu-SDS.docx)
+[SOFTWARE IMPLEMENTATION DOCUMENT](https://github.com/zeynepsl/CourseManagementSystem/blob/master/raporlar/gerceklestirimRaporu.docx)
+
+
 ## Layers
 - ***[Entities](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/entities)***
     - *[concretes](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/entities/concretes)*
