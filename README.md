@@ -8,10 +8,17 @@
 # About the project
 
 ## Technologies used
-- [Java](https://java.com/en/)
-- Spring Boot
-- Spring Framework
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+- [Java (v 11)](https://java.com/en/)
+- Spring Boot (v 2.5.5)
+- Spring Framework (v 2.5.5)
 - Spring Fox Hibernate
+- Swagger (v 2.9.2)
 - [PostgreSql](https://www.postgresql.org/)
 
 ## Features 
