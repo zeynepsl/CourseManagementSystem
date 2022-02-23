@@ -1,0 +1,63 @@
+package project.courseManagementSystem.api.controllers;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import project.courseManagementSystem.business.abstracts.AuthService;
+import project.courseManagementSystem.core.entities.User;
+import project.courseManagementSystem.core.utilities.results.DataResult;
+import project.courseManagementSystem.core.utilities.results.ErrorDataResult;
+import project.courseManagementSystem.core.utilities.results.Result;
+import project.courseManagementSystem.entities.dtos.InstructorDto;
+import project.courseManagementSystem.entities.dtos.LoginDto;
+import project.courseManagementSystem.entities.dtos.StudentDto;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+	private AuthService authService;
+
+	@Autowired
+	public AuthController(AuthService authService) {
+		this.authService = authService;
+	} 
+	
+	@PostMapping("/login")
+	public DataResult<User> login(@RequestBody LoginDto loginDto){
+		return this.authService.login(loginDto);
+	}
+	
+	@PostMapping("/registerForStudent")
+	public Result registerForStudent(@RequestBody StudentDto studentDto){
+		return this.authService.registerForStudent(studentDto);
+	}
+	
+	@PostMapping("/registerForInstructor")
+	public Result registerForInstructor(@RequestBody InstructorDto instructorDto){
+		return this.authService.registerForInstructor(instructorDto);
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)//bu metot default olarak badRequest Donsun
+	public ErrorDataResult<Object> handleValidationException
+	(MethodArgumentNotValidException exceptions){
+		Map<String, String> validationErrors = new HashMap<>();
+		for(FieldError fieldError : exceptions.getBindingResult().getFieldErrors() ) {
+			validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
+		}
+		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "dogrulama hatalari");
+		return errors;
+	}
+    
+}

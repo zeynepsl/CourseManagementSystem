@@ -1,0 +1,17 @@
+package project.courseManagementSystem.business.constants;
+
+public class Outer {
+	
+	public static class Messages{
+		public static String message = "aaa";
+	}
+
+}
+
+
+/*Statik anahtar sözcüğü, bir iç sınıf olmadıkça bir sınıfla birlikte kullanılamaz. 
+ * Statik bir iç sınıf, dış sınıfın statik bir üyesi olan iç içe geçmiş bir sınıftır. 
+ * Diğer statik üyeler kullanılarak dış sınıfı başlatmadan erişilebilir. 
+ * Statik üyeler gibi, statik bir iç içe sınıf, dış sınıfın örnek değişkenlerine ve yöntemlerine erişime sahip değildir.
+ * Statik bir iç içe sınıf örneği oluşturmak, bir iç sınıfı örneklemekten biraz farklıdır.
+ * */
