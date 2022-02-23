@@ -8,10 +8,11 @@
 # About the project
 
 ## Technologies used
-- [Java](https://java.com/en/)
-- Spring Boot
-- Spring Framework
+- [Java (v 11)](https://java.com/en/)
+- Spring Boot (v 2.5.5)
+- Spring Framework (v 2.5.5)
 - Spring Fox Hibernate
+- Swagger (v 2.9.2)
 - [PostgreSql](https://www.postgresql.org/)
 
 ## Features 
@@ -22,6 +23,13 @@
 [API](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/api/controllers) layers).
 - Each method is provided to return a [Result structure](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/core/utilities/results).
 - Autowired in SpringFramework structure is used for IoC.
+
+
+## Documents
+- The language of the documents is Turkish. If there is anything you want to ask, please [contact me](https://www.linkedin.com/in/zeynepsalman/) without hesitation.
+    - [SOFTWARE REQUIREMENTS SPECIFİCATIONS DOCUMENT - SRS](https://github.com/zeynepsl/CourseManagementSystem/blob/master/raporlar/analizRaporu-SRS.docx)
+    - [SOFTWARE DESİGN DOCUMENT - SDS](https://github.com/zeynepsl/CourseManagementSystem/blob/master/raporlar/tasar%C4%B1mRaporu-SDS.docx)
+    - [SOFTWARE IMPLEMENTATION DOCUMENT](https://github.com/zeynepsl/CourseManagementSystem/blob/master/raporlar/gerceklestirimRaporu.docx)
 
 
 ## Layers
