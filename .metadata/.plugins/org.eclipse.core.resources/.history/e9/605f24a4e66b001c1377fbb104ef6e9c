@@ -1,9 +1,0 @@
-package project.courseManagementSystem.business.constants;
-
-public class Constant {
-	
-	public static class Mesaa{
-		
-	}
-
-}
