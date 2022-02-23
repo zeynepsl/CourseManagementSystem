@@ -15,6 +15,9 @@
 - Swagger (v 2.9.2)
 - [PostgreSql](https://www.postgresql.org/)
 
+## Database Design
+![Database](https://github.com/zeynepsl/CourseManagementSystem/blob/master/images/database.PNG)
+
 ## Features 
 - Prepared with [Java Programming language](https://java.com/en/) and Layered architecture ([Entities](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/entities),
 [DataAccess](https://github.com/zeynepsl/CourseManagementSystem/tree/master/courseManagementSystem/src/main/java/project/courseManagementSystem/dataAccess/abstracts), 
@@ -119,5 +122,16 @@
     - [RoleController.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/api/controllers/RoleController.java)
     - [StudentsController.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/api/controllers/StudentsController.java) 
     - [UsersController.java](https://github.com/zeynepsl/CourseManagementSystem/blob/master/courseManagementSystem/src/main/java/project/courseManagementSystem/api/controllers/UsersController.java)
-    
+  
+<!--
+# API
+![](images/api.PNG)
+![](images/api2.PNG)
+![](images/api3.PNG)
+![](images/api4.PNG)
+![](images/api5.PNG)
+![](images/api6.PNG)
+![](images/api7.PNG)
+![](images/api8.PNG)
+![](images/api9.PNG)-->
       
